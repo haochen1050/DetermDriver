@@ -1,0 +1,35 @@
+RGB Camera Calibration Summary
+========================================
+
+Camera Model: Raspberry Pi Camera v3
+Calibration Date: 2025-08-14 15:14:20
+OpenCV Version: 4.12.0
+Method: ChArUco
+
+ChArUco Board Configuration:
+  Size: 12x9 squares
+  Square size: 30.0mm
+  Marker size: 22.5mm
+  Dictionary: DICT_5X5_250
+
+Calibration Results:
+  Images used: 20
+  Total corners: 1016
+  Mean reprojection error: 0.041 pixels
+  Max reprojection error: 0.107 pixels
+  Std reprojection error: 0.016 pixels
+  Quality assessment: EXCELLENT
+
+Camera Parameters:
+  Image resolution: 1536x864
+  Focal length: fx=978.6, fy=977.4 pixels
+  Principal point: cx=792.6, cy=440.3
+  Field of view: 76.3° × 47.7°
+
+Camera Matrix:
+  [   978.563      0.000    792.630]
+  [     0.000    977.417    440.311]
+  [     0.000      0.000      1.000]
+
+Distortion Coefficients:
+  [ 0.03919, 12.18689,  0.00029,  0.01275, 24.26526,  0.05467, 12.45488, 24.01787, -0.01133, -0.00408,  0.00140, -0.00235]

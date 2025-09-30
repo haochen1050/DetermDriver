@@ -1,0 +1,42 @@
+RGB Camera Calibration Summary
+=====================================
+Timestamp: 20250922_134752
+Calibration Type: RGB Camera (Raspberry Pi)
+
+Pattern Information:
+- Pattern Size: 11 x 8 corners
+- Square Size: 30.0 mm
+- Number of Images Used: 20
+
+Image Information:
+- Resolution: 640 x 480 pixels
+
+Calibration Results:
+- Mean Reprojection Error: 0.0082 pixels
+
+Camera Matrix:
+[[541.15412629   0.         322.76223738]
+ [  0.         541.18394017 245.13495424]
+ [  0.           0.           1.        ]]
+
+Distortion Coefficients:
+[-5.94205850e-02  7.24135370e-02  5.12143246e-04 -1.89740685e-05
+  7.05105297e-02]
+
+Quality Assessment:
+- Reprojection Error < 0.5 pixels: ✅ Excellent
+- Number of Images >= 15: ✅ Good
+
+Camera Parameters:
+- Focal Length X (fx): 541.15 pixels
+- Focal Length Y (fy): 541.18 pixels  
+- Principal Point X (cx): 322.76 pixels
+- Principal Point Y (cy): 245.13 pixels
+
+Files Generated:
+- rgb_camera_calibration.pkl (local & config/)
+- rgb_camera_calibration.xml (local & config/)
+- rgb_camera_calibration.json (local & config/)
+- rgb_camera_calibration_summary.txt (local & config/)
+
+Note: All calibration files have been saved both locally and in the ../../config directory.

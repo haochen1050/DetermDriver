@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<StereoCalibration>
+  <Metadata>
+    <CalibrationMethod>ChArUco_Stereo_Simplified</CalibrationMethod>
+    <CalibrationDate>2025-08-14 15:31:37</CalibrationDate>
+    <Camera1>Raspberry Pi Camera v3 (RGB)</Camera1>
+    <Camera2>RealSense D421 IR1</Camera2>
+    <ImageWidth>640</ImageWidth>
+    <ImageHeight>480</ImageHeight>
+    <PairsUsed>20</PairsUsed>
+    <TotalCorners>397</TotalCorners>
+    <RMSError>3269.564143</RMSError>
+    <BaselineDistance>623.215</BaselineDistance>
+    <OpenCVVersion>4.12.0</OpenCVVersion>
+    <OpenCVAPI>NEW</OpenCVAPI>
+  </Metadata>
+  <CharucoBoardConfig>
+    <SquaresX>12</SquaresX>
+    <SquaresY>9</SquaresY>
+    <SquareLength>0.030000</SquareLength>
+    <MarkerLength>0.022500</MarkerLength>
+    <ArucoDictionary>DICT_5X5_250</ArucoDictionary>
+  </CharucoBoardConfig>
+  <RGBCamera>
+    <CameraMatrix type_id="opencv-matrix" rows="3" cols="3" dt="d">
+978.563186 0.000000 792.629847 0.000000 977.417090 440.311285 0.000000 0.000000 1.000000
+</CameraMatrix>
+    <DistortionCoefficients type_id="opencv-matrix" rows="1" cols="12" dt="d">
+0.03919374 12.18688695 0.00028851 0.01275435 24.26525918 0.05467484 12.45487921 24.01786617 -0.01132824 -0.00408243 0.00139772 -0.00235370
+</DistortionCoefficients>
+  </RGBCamera>
+  <IRCamera>
+    <CameraMatrix type_id="opencv-matrix" rows="3" cols="3" dt="d">
+464.652618 0.000000 319.541107 0.000000 464.652618 242.405289 0.000000 0.000000 1.000000
+</CameraMatrix>
+    <DistortionCoefficients type_id="opencv-matrix" rows="1" cols="5" dt="d">
+0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+</DistortionCoefficients>
+  </IRCamera>
+  <StereoExtrinsics>
+    <RotationMatrix type_id="opencv-matrix" rows="3" cols="3" dt="d">
+0.92915632 -0.17060420 0.32796758 0.08767857 0.96353316 0.25281676 -0.35913924 -0.20615056 0.91023126
+</RotationMatrix>
+    <TranslationVector type_id="opencv-matrix" rows="3" cols="1" dt="d">
+-0.03542364 -0.14222939 -0.60573380
+</TranslationVector>
+    <EssentialMatrix type_id="opencv-matrix" rows="3" cols="3" dt="d">
+0.10419003 0.61296527 0.02367802 -0.57554341 0.09603813 -0.16641735 0.12904745 -0.05839678 0.03769094
+</EssentialMatrix>
+    <FundamentalMatrix type_id="opencv-matrix" rows="3" cols="3" dt="d">
+0.00000400 0.00002355 -0.01265114 -0.00002209 0.00000369 0.00963372 0.00637820 -0.00946346 1.00000000
+</FundamentalMatrix>
+  </StereoExtrinsics>
+  <Rectification>
+    <R1 type_id="opencv-matrix" rows="3" cols="3" dt="d">
+0.96096179 0.01903905 0.27602527 -0.27624189 0.00983119 0.96103786 0.01558359 -0.99977040 0.01470678
+</R1>
+    <R2 type_id="opencv-matrix" rows="3" cols="3" dt="d">
+0.98016292 0.17238433 -0.09779718 0.05684012 0.22821866 0.97194930 0.18986797 -0.95822747 0.21389313
+</R2>
+    <P1 type_id="opencv-matrix" rows="3" cols="4" dt="d">
+780.16647368 0.00000000 -53.56485939 0.00000000 0.00000000 780.16647368 6608.08670807 0.00000000 0.00000000 0.00000000 1.00000000 0.00000000
+</P1>
+    <P2 type_id="opencv-matrix" rows="3" cols="4" dt="d">
+780.16647368 0.00000000 -53.56485939 0.00000000 0.00000000 780.16647368 6608.08670807 -486.21178235 0.00000000 0.00000000 1.00000000 0.00000000
+</P2>
+    <Q type_id="opencv-matrix" rows="4" cols="4" dt="d">
+1.00000000 0.00000000 0.00000000 53.56485939 0.00000000 1.00000000 0.00000000 -6608.08670807 0.00000000 0.00000000 0.00000000 780.16647368 0.00000000 0.00000000 1.60458159 -0.00000000
+</Q>
+  </Rectification>
+</StereoCalibration>

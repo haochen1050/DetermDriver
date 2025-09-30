@@ -1,0 +1,88 @@
+RGB-to-Depth Stereo Calibration Summary
+==================================================
+
+Camera Setup: ChArUco_Stereo_Simplified
+Calibration Date: 2025-08-14 15:31:37
+OpenCV Version: 4.12.0
+Method: ChArUco Stereo Calibration
+
+Camera Configuration:
+  RGB Camera: Raspberry Pi Camera v3
+  Depth Camera: RealSense D421 IR1
+  Coordinate System: Depth = IR1 (RealSense standard)
+  Transformation: RGB → Depth coordinate system
+
+ChArUco Board Configuration:
+  Size: 12x9 squares
+  Square size: 30.0mm
+  Marker size: 22.5mm
+  Dictionary: DICT_5X5_250
+
+Stereo Calibration Results:
+  Image pairs used: 20
+  Total corresponding corners: 397
+  Average corners per pair: 19.9
+  RMS reprojection error: 3269.564 pixels
+  Quality assessment: POOR - Consider recalibrating
+  Baseline distance: 623.2mm
+
+Coordinate Transformation (RGB → Depth):
+  Translation (mm): [-35.42, -142.23, -605.73]
+  Rotation angles (degrees): [-13.60, 20.36, 7.65]
+  Physical interpretation:
+    X: -35.4mm left (RGB relative to depth)
+    Y: -142.2mm up
+    Z: -605.7mm backward
+
+RGB Camera Parameters:
+  Image resolution: 640x480
+  Focal length: fx=978.6, fy=977.4 pixels
+  Principal point: cx=792.6, cy=440.3
+  Field of view: 36.2° × 27.6°
+
+Depth Camera Parameters (RealSense IR1):
+  Image resolution: 640x480
+  Focal length: fx=464.7, fy=464.7 pixels
+  Principal point: cx=319.5, cy=242.4
+  Field of view: 69.1° × 54.6°
+  Distortion model: distortion.brown_conrady
+
+RGB Camera Matrix:
+  [   978.563      0.000    792.630]
+  [     0.000    977.417    440.311]
+  [     0.000      0.000      1.000]
+
+RGB Distortion Coefficients:
+  [ 0.03919, 12.18689,  0.00029,  0.01275, 24.26526,  0.05467, 12.45488, 24.01787, -0.01133, -0.00408,  0.00140, -0.00235]
+
+Depth Camera Matrix:
+  [   464.653      0.000    319.541]
+  [     0.000    464.653    242.405]
+  [     0.000      0.000      1.000]
+
+Depth Distortion Coefficients:
+  [ 0.00000,  0.00000,  0.00000,  0.00000,  0.00000]
+
+Transformation Matrices:
+Rotation Matrix (RGB → Depth):
+  [  0.929156  -0.170604   0.327968]
+  [  0.087679   0.963533   0.252817]
+  [ -0.359139  -0.206151   0.910231]
+
+Translation Vector (RGB → Depth, meters):
+  [ -0.035424]
+  [ -0.142229]
+  [ -0.605734]
+
+Usage Notes for C++ Applications:
+1. Coordinate transformation: P_depth = R * P_rgb + T
+2. For point clouds: Use depth coordinate system as reference
+3. For RGB overlay: Transform RGB pixels to depth coordinates
+4. Rectification data available for stereo rectification
+5. All matrices are in OpenCV format (row-major)
+
+Calibration Files:
+  Binary data: rgb_to_depth_calibration.pkl
+  XML format: rgb_to_depth_calibration.xml
+  This summary: rgb_to_depth_calibration_summary.txt
+  Reference images: calibration_images/stereo_charuco_*
