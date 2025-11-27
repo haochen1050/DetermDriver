@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DELPP_NO_DEFAULT_LOG_FILE -DENHANCED_SYNCHRONIZATION=1 -DHARDWARE_TIMESTAMP_SUPPORT=1 -Ddetermsensor_EXPORTS
 
-CXX_INCLUDES = -I/home/determ/Desktop/DetermSensorDriver/source/include -I/usr/include/libcamera
+CXX_INCLUDES = -I/home/determ/Desktop/DetermDriver/source/include -I/usr/include/libcamera
 
 CXX_FLAGS =  -Wall -Wextra -O3 -DNDEBUG -fPIC -std=c++17
 

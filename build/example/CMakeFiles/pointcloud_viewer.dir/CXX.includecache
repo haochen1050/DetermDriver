@@ -7,10 +7,6 @@
 #IncludeRegexTransform: 
 
 ../source/include/sensor/determ_sensor.h
-sensor/raspberry_sensor.h
-../source/include/sensor/sensor/raspberry_sensor.h
-sensor/realsense_sensor.h
-../source/include/sensor/sensor/realsense_sensor.h
 chrono
 -
 thread
@@ -43,6 +39,10 @@ algorithm
 -
 numeric
 -
+sensor/raspberry_sensor.h
+../source/include/sensor/sensor/raspberry_sensor.h
+sensor/realsense_d421_sensor.h
+../source/include/sensor/sensor/realsense_d421_sensor.h
 
 ../source/include/sensor/raspberry_sensor.h
 fcntl.h
@@ -82,7 +82,7 @@ thread
 vector
 -
 
-../source/include/sensor/realsense_sensor.h
+../source/include/sensor/realsense_d421_sensor.h
 librealsense2/rs.hpp
 -
 vector
@@ -100,9 +100,9 @@ iostream
 thread
 -
 
-/home/determ/Desktop/DetermSensorDriver/example/pointcloud_viewer.cpp
+/home/determ/Desktop/DetermDriver/example/pointcloud_viewer.cpp
 sensor/determ_sensor.h
-/home/determ/Desktop/DetermSensorDriver/example/sensor/determ_sensor.h
+/home/determ/Desktop/DetermDriver/example/sensor/determ_sensor.h
 opencv2/opencv.hpp
 -
 opencv2/imgproc.hpp

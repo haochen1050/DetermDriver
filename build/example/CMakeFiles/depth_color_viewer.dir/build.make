@@ -62,10 +62,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/determ/Desktop/DetermSensorDriver
+CMAKE_SOURCE_DIR = /home/determ/Desktop/DetermDriver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/determ/Desktop/DetermSensorDriver/build
+CMAKE_BINARY_DIR = /home/determ/Desktop/DetermDriver/build
 
 # Include any dependencies generated for this target.
 include example/CMakeFiles/depth_color_viewer.dir/depend.make
@@ -78,16 +78,16 @@ include example/CMakeFiles/depth_color_viewer.dir/flags.make
 
 example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o: example/CMakeFiles/depth_color_viewer.dir/flags.make
 example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o: ../example/depth_color_viewer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/determ/Desktop/DetermSensorDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o"
-	cd /home/determ/Desktop/DetermSensorDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o -c /home/determ/Desktop/DetermSensorDriver/example/depth_color_viewer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o"
+	cd /home/determ/Desktop/DetermDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o -c /home/determ/Desktop/DetermDriver/example/depth_color_viewer.cpp
 
 example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.i"
-	cd /home/determ/Desktop/DetermSensorDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/determ/Desktop/DetermSensorDriver/example/depth_color_viewer.cpp > CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/determ/Desktop/DetermDriver/example/depth_color_viewer.cpp > CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.i
 
 example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.s"
-	cd /home/determ/Desktop/DetermSensorDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/determ/Desktop/DetermSensorDriver/example/depth_color_viewer.cpp -o CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/determ/Desktop/DetermDriver/example/depth_color_viewer.cpp -o CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.s
 
 # Object files for target depth_color_viewer
 depth_color_viewer_OBJECTS = \
@@ -136,9 +136,8 @@ bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libOpenGL.so
 bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libGLX.so
 bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libGLU.so
 bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libglut.so
-bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libXmu.so
 bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libXi.so
-bin/depth_color_viewer: /usr/local/lib/aarch64-linux-gnu/librealsense2.so.2.56.5
+bin/depth_color_viewer: /usr/local/lib/aarch64-linux-gnu/librealsense2.so.2.56.1
 bin/depth_color_viewer: /usr/local/lib/aarch64-linux-gnu/librsutils.a
 bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libopencv_highgui.so.4.5.1
 bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libopencv_datasets.so.4.5.1
@@ -160,8 +159,8 @@ bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libopencv_photo.so.4.5.1
 bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libopencv_imgproc.so.4.5.1
 bin/depth_color_viewer: /usr/lib/aarch64-linux-gnu/libopencv_core.so.4.5.1
 bin/depth_color_viewer: example/CMakeFiles/depth_color_viewer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/determ/Desktop/DetermSensorDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/depth_color_viewer"
-	cd /home/determ/Desktop/DetermSensorDriver/build/example && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/depth_color_viewer.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/depth_color_viewer"
+	cd /home/determ/Desktop/DetermDriver/build/example && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/depth_color_viewer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 example/CMakeFiles/depth_color_viewer.dir/build: bin/depth_color_viewer
@@ -169,10 +168,10 @@ example/CMakeFiles/depth_color_viewer.dir/build: bin/depth_color_viewer
 .PHONY : example/CMakeFiles/depth_color_viewer.dir/build
 
 example/CMakeFiles/depth_color_viewer.dir/clean:
-	cd /home/determ/Desktop/DetermSensorDriver/build/example && $(CMAKE_COMMAND) -P CMakeFiles/depth_color_viewer.dir/cmake_clean.cmake
+	cd /home/determ/Desktop/DetermDriver/build/example && $(CMAKE_COMMAND) -P CMakeFiles/depth_color_viewer.dir/cmake_clean.cmake
 .PHONY : example/CMakeFiles/depth_color_viewer.dir/clean
 
 example/CMakeFiles/depth_color_viewer.dir/depend:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/determ/Desktop/DetermSensorDriver /home/determ/Desktop/DetermSensorDriver/example /home/determ/Desktop/DetermSensorDriver/build /home/determ/Desktop/DetermSensorDriver/build/example /home/determ/Desktop/DetermSensorDriver/build/example/CMakeFiles/depth_color_viewer.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/determ/Desktop/DetermDriver/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/determ/Desktop/DetermDriver /home/determ/Desktop/DetermDriver/example /home/determ/Desktop/DetermDriver/build /home/determ/Desktop/DetermDriver/build/example /home/determ/Desktop/DetermDriver/build/example/CMakeFiles/depth_color_viewer.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : example/CMakeFiles/depth_color_viewer.dir/depend
 

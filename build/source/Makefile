@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/determ/Desktop/DetermSensorDriver
+CMAKE_SOURCE_DIR = /home/determ/Desktop/DetermDriver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/determ/Desktop/DetermSensorDriver/build
+CMAKE_BINARY_DIR = /home/determ/Desktop/DetermDriver/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -145,14 +145,14 @@ install/local/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermSensorDriver/build/CMakeFiles /home/determ/Desktop/DetermSensorDriver/build/source//CMakeFiles/progress.marks
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermSensorDriver/build/CMakeFiles 0
+	cd /home/determ/Desktop/DetermDriver/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles /home/determ/Desktop/DetermDriver/build/source//CMakeFiles/progress.marks
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/clean
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/clean
 .PHONY : clean
 
 # The main clean target
@@ -162,22 +162,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/preinstall
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/preinstall
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/determ/Desktop/DetermDriver/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 source/CMakeFiles/determsensor.dir/rule:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/CMakeFiles/determsensor.dir/rule
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/CMakeFiles/determsensor.dir/rule
 .PHONY : source/CMakeFiles/determsensor.dir/rule
 
 # Convenience name for target.
@@ -187,7 +187,7 @@ determsensor: source/CMakeFiles/determsensor.dir/rule
 
 # fast build rule for target.
 determsensor/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/build
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/build
 .PHONY : determsensor/fast
 
 src/determ_sensor.o: src/determ_sensor.cpp.o
@@ -196,7 +196,7 @@ src/determ_sensor.o: src/determ_sensor.cpp.o
 
 # target to build an object file
 src/determ_sensor.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o
 .PHONY : src/determ_sensor.cpp.o
 
 src/determ_sensor.i: src/determ_sensor.cpp.i
@@ -205,7 +205,7 @@ src/determ_sensor.i: src/determ_sensor.cpp.i
 
 # target to preprocess a source file
 src/determ_sensor.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.i
 .PHONY : src/determ_sensor.cpp.i
 
 src/determ_sensor.s: src/determ_sensor.cpp.s
@@ -214,7 +214,7 @@ src/determ_sensor.s: src/determ_sensor.cpp.s
 
 # target to generate assembly for a file
 src/determ_sensor.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.s
 .PHONY : src/determ_sensor.cpp.s
 
 src/raspberry_sensor.o: src/raspberry_sensor.cpp.o
@@ -223,7 +223,7 @@ src/raspberry_sensor.o: src/raspberry_sensor.cpp.o
 
 # target to build an object file
 src/raspberry_sensor.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o
 .PHONY : src/raspberry_sensor.cpp.o
 
 src/raspberry_sensor.i: src/raspberry_sensor.cpp.i
@@ -232,7 +232,7 @@ src/raspberry_sensor.i: src/raspberry_sensor.cpp.i
 
 # target to preprocess a source file
 src/raspberry_sensor.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.i
 .PHONY : src/raspberry_sensor.cpp.i
 
 src/raspberry_sensor.s: src/raspberry_sensor.cpp.s
@@ -241,35 +241,35 @@ src/raspberry_sensor.s: src/raspberry_sensor.cpp.s
 
 # target to generate assembly for a file
 src/raspberry_sensor.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.s
 .PHONY : src/raspberry_sensor.cpp.s
 
-src/realsense_sensor.o: src/realsense_sensor.cpp.o
+src/realsense_d421_sensor.o: src/realsense_d421_sensor.cpp.o
 
-.PHONY : src/realsense_sensor.o
+.PHONY : src/realsense_d421_sensor.o
 
 # target to build an object file
-src/realsense_sensor.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/realsense_sensor.cpp.o
-.PHONY : src/realsense_sensor.cpp.o
+src/realsense_d421_sensor.cpp.o:
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o
+.PHONY : src/realsense_d421_sensor.cpp.o
 
-src/realsense_sensor.i: src/realsense_sensor.cpp.i
+src/realsense_d421_sensor.i: src/realsense_d421_sensor.cpp.i
 
-.PHONY : src/realsense_sensor.i
+.PHONY : src/realsense_d421_sensor.i
 
 # target to preprocess a source file
-src/realsense_sensor.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/realsense_sensor.cpp.i
-.PHONY : src/realsense_sensor.cpp.i
+src/realsense_d421_sensor.cpp.i:
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.i
+.PHONY : src/realsense_d421_sensor.cpp.i
 
-src/realsense_sensor.s: src/realsense_sensor.cpp.s
+src/realsense_d421_sensor.s: src/realsense_d421_sensor.cpp.s
 
-.PHONY : src/realsense_sensor.s
+.PHONY : src/realsense_d421_sensor.s
 
 # target to generate assembly for a file
-src/realsense_sensor.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/realsense_sensor.cpp.s
-.PHONY : src/realsense_sensor.cpp.s
+src/realsense_d421_sensor.cpp.s:
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.s
+.PHONY : src/realsense_d421_sensor.cpp.s
 
 # Help Target
 help:
@@ -290,9 +290,9 @@ help:
 	@echo "... src/raspberry_sensor.o"
 	@echo "... src/raspberry_sensor.i"
 	@echo "... src/raspberry_sensor.s"
-	@echo "... src/realsense_sensor.o"
-	@echo "... src/realsense_sensor.i"
-	@echo "... src/realsense_sensor.s"
+	@echo "... src/realsense_d421_sensor.o"
+	@echo "... src/realsense_d421_sensor.i"
+	@echo "... src/realsense_d421_sensor.s"
 .PHONY : help
 
 
@@ -304,6 +304,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/determ/Desktop/DetermDriver/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

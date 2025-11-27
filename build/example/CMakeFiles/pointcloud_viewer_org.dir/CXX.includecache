@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/determ/Desktop/DetermSensorDriver/example/pointcloud_viewer_org.cpp
+/home/determ/Desktop/DetermDriver/example/pointcloud_viewer_org.cpp
 librealsense2/rs.hpp
 -
 opencv2/opencv.hpp

@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/determ/Desktop/DetermSensorDriver
+CMAKE_SOURCE_DIR = /home/determ/Desktop/DetermDriver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/determ/Desktop/DetermSensorDriver/build
+CMAKE_BINARY_DIR = /home/determ/Desktop/DetermDriver/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -145,14 +145,14 @@ install/local/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermSensorDriver/build/CMakeFiles /home/determ/Desktop/DetermSensorDriver/build/example//CMakeFiles/progress.marks
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermSensorDriver/build/CMakeFiles 0
+	cd /home/determ/Desktop/DetermDriver/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles /home/determ/Desktop/DetermDriver/build/example//CMakeFiles/progress.marks
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/clean
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/clean
 .PHONY : clean
 
 # The main clean target
@@ -162,22 +162,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/preinstall
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/preinstall
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/determ/Desktop/DetermDriver/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 example/CMakeFiles/raspberry_sensor_example.dir/rule:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/raspberry_sensor_example.dir/rule
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/raspberry_sensor_example.dir/rule
 .PHONY : example/CMakeFiles/raspberry_sensor_example.dir/rule
 
 # Convenience name for target.
@@ -187,12 +187,12 @@ raspberry_sensor_example: example/CMakeFiles/raspberry_sensor_example.dir/rule
 
 # fast build rule for target.
 raspberry_sensor_example/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/build
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/build
 .PHONY : raspberry_sensor_example/fast
 
 # Convenience name for target.
 example/CMakeFiles/realsense_sensor_example.dir/rule:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/realsense_sensor_example.dir/rule
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/realsense_sensor_example.dir/rule
 .PHONY : example/CMakeFiles/realsense_sensor_example.dir/rule
 
 # Convenience name for target.
@@ -202,12 +202,12 @@ realsense_sensor_example: example/CMakeFiles/realsense_sensor_example.dir/rule
 
 # fast build rule for target.
 realsense_sensor_example/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_sensor_example.dir/build.make example/CMakeFiles/realsense_sensor_example.dir/build
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_sensor_example.dir/build.make example/CMakeFiles/realsense_sensor_example.dir/build
 .PHONY : realsense_sensor_example/fast
 
 # Convenience name for target.
 example/CMakeFiles/determ_sensor_example.dir/rule:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/determ_sensor_example.dir/rule
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/determ_sensor_example.dir/rule
 .PHONY : example/CMakeFiles/determ_sensor_example.dir/rule
 
 # Convenience name for target.
@@ -217,12 +217,12 @@ determ_sensor_example: example/CMakeFiles/determ_sensor_example.dir/rule
 
 # fast build rule for target.
 determ_sensor_example/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/determ_sensor_example.dir/build.make example/CMakeFiles/determ_sensor_example.dir/build
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/determ_sensor_example.dir/build.make example/CMakeFiles/determ_sensor_example.dir/build
 .PHONY : determ_sensor_example/fast
 
 # Convenience name for target.
 example/CMakeFiles/realsense_offset_test.dir/rule:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/realsense_offset_test.dir/rule
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/realsense_offset_test.dir/rule
 .PHONY : example/CMakeFiles/realsense_offset_test.dir/rule
 
 # Convenience name for target.
@@ -232,12 +232,12 @@ realsense_offset_test: example/CMakeFiles/realsense_offset_test.dir/rule
 
 # fast build rule for target.
 realsense_offset_test/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_offset_test.dir/build.make example/CMakeFiles/realsense_offset_test.dir/build
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_offset_test.dir/build.make example/CMakeFiles/realsense_offset_test.dir/build
 .PHONY : realsense_offset_test/fast
 
 # Convenience name for target.
 example/CMakeFiles/pointcloud_viewer_org.dir/rule:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/pointcloud_viewer_org.dir/rule
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/pointcloud_viewer_org.dir/rule
 .PHONY : example/CMakeFiles/pointcloud_viewer_org.dir/rule
 
 # Convenience name for target.
@@ -247,12 +247,12 @@ pointcloud_viewer_org: example/CMakeFiles/pointcloud_viewer_org.dir/rule
 
 # fast build rule for target.
 pointcloud_viewer_org/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer_org.dir/build.make example/CMakeFiles/pointcloud_viewer_org.dir/build
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer_org.dir/build.make example/CMakeFiles/pointcloud_viewer_org.dir/build
 .PHONY : pointcloud_viewer_org/fast
 
 # Convenience name for target.
 example/CMakeFiles/depth_color_viewer.dir/rule:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/depth_color_viewer.dir/rule
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/depth_color_viewer.dir/rule
 .PHONY : example/CMakeFiles/depth_color_viewer.dir/rule
 
 # Convenience name for target.
@@ -262,12 +262,12 @@ depth_color_viewer: example/CMakeFiles/depth_color_viewer.dir/rule
 
 # fast build rule for target.
 depth_color_viewer/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/depth_color_viewer.dir/build.make example/CMakeFiles/depth_color_viewer.dir/build
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/depth_color_viewer.dir/build.make example/CMakeFiles/depth_color_viewer.dir/build
 .PHONY : depth_color_viewer/fast
 
 # Convenience name for target.
 example/CMakeFiles/latency_test.dir/rule:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/latency_test.dir/rule
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/latency_test.dir/rule
 .PHONY : example/CMakeFiles/latency_test.dir/rule
 
 # Convenience name for target.
@@ -277,12 +277,12 @@ latency_test: example/CMakeFiles/latency_test.dir/rule
 
 # fast build rule for target.
 latency_test/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/latency_test.dir/build.make example/CMakeFiles/latency_test.dir/build
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/latency_test.dir/build.make example/CMakeFiles/latency_test.dir/build
 .PHONY : latency_test/fast
 
 # Convenience name for target.
 example/CMakeFiles/pointcloud_viewer.dir/rule:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/pointcloud_viewer.dir/rule
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/pointcloud_viewer.dir/rule
 .PHONY : example/CMakeFiles/pointcloud_viewer.dir/rule
 
 # Convenience name for target.
@@ -292,7 +292,7 @@ pointcloud_viewer: example/CMakeFiles/pointcloud_viewer.dir/rule
 
 # fast build rule for target.
 pointcloud_viewer/fast:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/build
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/build
 .PHONY : pointcloud_viewer/fast
 
 depth_color_viewer.o: depth_color_viewer.cpp.o
@@ -301,7 +301,7 @@ depth_color_viewer.o: depth_color_viewer.cpp.o
 
 # target to build an object file
 depth_color_viewer.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/depth_color_viewer.dir/build.make example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/depth_color_viewer.dir/build.make example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o
 .PHONY : depth_color_viewer.cpp.o
 
 depth_color_viewer.i: depth_color_viewer.cpp.i
@@ -310,7 +310,7 @@ depth_color_viewer.i: depth_color_viewer.cpp.i
 
 # target to preprocess a source file
 depth_color_viewer.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/depth_color_viewer.dir/build.make example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/depth_color_viewer.dir/build.make example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.i
 .PHONY : depth_color_viewer.cpp.i
 
 depth_color_viewer.s: depth_color_viewer.cpp.s
@@ -319,7 +319,7 @@ depth_color_viewer.s: depth_color_viewer.cpp.s
 
 # target to generate assembly for a file
 depth_color_viewer.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/depth_color_viewer.dir/build.make example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/depth_color_viewer.dir/build.make example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.s
 .PHONY : depth_color_viewer.cpp.s
 
 determ_sensor_example.o: determ_sensor_example.cpp.o
@@ -328,7 +328,7 @@ determ_sensor_example.o: determ_sensor_example.cpp.o
 
 # target to build an object file
 determ_sensor_example.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/determ_sensor_example.dir/build.make example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.o
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/determ_sensor_example.dir/build.make example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.o
 .PHONY : determ_sensor_example.cpp.o
 
 determ_sensor_example.i: determ_sensor_example.cpp.i
@@ -337,7 +337,7 @@ determ_sensor_example.i: determ_sensor_example.cpp.i
 
 # target to preprocess a source file
 determ_sensor_example.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/determ_sensor_example.dir/build.make example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/determ_sensor_example.dir/build.make example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.i
 .PHONY : determ_sensor_example.cpp.i
 
 determ_sensor_example.s: determ_sensor_example.cpp.s
@@ -346,7 +346,7 @@ determ_sensor_example.s: determ_sensor_example.cpp.s
 
 # target to generate assembly for a file
 determ_sensor_example.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/determ_sensor_example.dir/build.make example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/determ_sensor_example.dir/build.make example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.s
 .PHONY : determ_sensor_example.cpp.s
 
 latency_test.o: latency_test.cpp.o
@@ -355,7 +355,7 @@ latency_test.o: latency_test.cpp.o
 
 # target to build an object file
 latency_test.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/latency_test.dir/build.make example/CMakeFiles/latency_test.dir/latency_test.cpp.o
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/latency_test.dir/build.make example/CMakeFiles/latency_test.dir/latency_test.cpp.o
 .PHONY : latency_test.cpp.o
 
 latency_test.i: latency_test.cpp.i
@@ -364,7 +364,7 @@ latency_test.i: latency_test.cpp.i
 
 # target to preprocess a source file
 latency_test.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/latency_test.dir/build.make example/CMakeFiles/latency_test.dir/latency_test.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/latency_test.dir/build.make example/CMakeFiles/latency_test.dir/latency_test.cpp.i
 .PHONY : latency_test.cpp.i
 
 latency_test.s: latency_test.cpp.s
@@ -373,7 +373,7 @@ latency_test.s: latency_test.cpp.s
 
 # target to generate assembly for a file
 latency_test.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/latency_test.dir/build.make example/CMakeFiles/latency_test.dir/latency_test.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/latency_test.dir/build.make example/CMakeFiles/latency_test.dir/latency_test.cpp.s
 .PHONY : latency_test.cpp.s
 
 pointcloud_viewer.o: pointcloud_viewer.cpp.o
@@ -382,7 +382,7 @@ pointcloud_viewer.o: pointcloud_viewer.cpp.o
 
 # target to build an object file
 pointcloud_viewer.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.o
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.o
 .PHONY : pointcloud_viewer.cpp.o
 
 pointcloud_viewer.i: pointcloud_viewer.cpp.i
@@ -391,7 +391,7 @@ pointcloud_viewer.i: pointcloud_viewer.cpp.i
 
 # target to preprocess a source file
 pointcloud_viewer.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.i
 .PHONY : pointcloud_viewer.cpp.i
 
 pointcloud_viewer.s: pointcloud_viewer.cpp.s
@@ -400,7 +400,7 @@ pointcloud_viewer.s: pointcloud_viewer.cpp.s
 
 # target to generate assembly for a file
 pointcloud_viewer.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.s
 .PHONY : pointcloud_viewer.cpp.s
 
 pointcloud_viewer_org.o: pointcloud_viewer_org.cpp.o
@@ -409,7 +409,7 @@ pointcloud_viewer_org.o: pointcloud_viewer_org.cpp.o
 
 # target to build an object file
 pointcloud_viewer_org.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer_org.dir/build.make example/CMakeFiles/pointcloud_viewer_org.dir/pointcloud_viewer_org.cpp.o
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer_org.dir/build.make example/CMakeFiles/pointcloud_viewer_org.dir/pointcloud_viewer_org.cpp.o
 .PHONY : pointcloud_viewer_org.cpp.o
 
 pointcloud_viewer_org.i: pointcloud_viewer_org.cpp.i
@@ -418,7 +418,7 @@ pointcloud_viewer_org.i: pointcloud_viewer_org.cpp.i
 
 # target to preprocess a source file
 pointcloud_viewer_org.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer_org.dir/build.make example/CMakeFiles/pointcloud_viewer_org.dir/pointcloud_viewer_org.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer_org.dir/build.make example/CMakeFiles/pointcloud_viewer_org.dir/pointcloud_viewer_org.cpp.i
 .PHONY : pointcloud_viewer_org.cpp.i
 
 pointcloud_viewer_org.s: pointcloud_viewer_org.cpp.s
@@ -427,7 +427,7 @@ pointcloud_viewer_org.s: pointcloud_viewer_org.cpp.s
 
 # target to generate assembly for a file
 pointcloud_viewer_org.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer_org.dir/build.make example/CMakeFiles/pointcloud_viewer_org.dir/pointcloud_viewer_org.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer_org.dir/build.make example/CMakeFiles/pointcloud_viewer_org.dir/pointcloud_viewer_org.cpp.s
 .PHONY : pointcloud_viewer_org.cpp.s
 
 raspberry_sensor_example.o: raspberry_sensor_example.cpp.o
@@ -436,7 +436,7 @@ raspberry_sensor_example.o: raspberry_sensor_example.cpp.o
 
 # target to build an object file
 raspberry_sensor_example.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/raspberry_sensor_example.cpp.o
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/raspberry_sensor_example.cpp.o
 .PHONY : raspberry_sensor_example.cpp.o
 
 raspberry_sensor_example.i: raspberry_sensor_example.cpp.i
@@ -445,7 +445,7 @@ raspberry_sensor_example.i: raspberry_sensor_example.cpp.i
 
 # target to preprocess a source file
 raspberry_sensor_example.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/raspberry_sensor_example.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/raspberry_sensor_example.cpp.i
 .PHONY : raspberry_sensor_example.cpp.i
 
 raspberry_sensor_example.s: raspberry_sensor_example.cpp.s
@@ -454,7 +454,7 @@ raspberry_sensor_example.s: raspberry_sensor_example.cpp.s
 
 # target to generate assembly for a file
 raspberry_sensor_example.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/raspberry_sensor_example.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/raspberry_sensor_example.cpp.s
 .PHONY : raspberry_sensor_example.cpp.s
 
 realsense_offset_test.o: realsense_offset_test.cpp.o
@@ -463,7 +463,7 @@ realsense_offset_test.o: realsense_offset_test.cpp.o
 
 # target to build an object file
 realsense_offset_test.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_offset_test.dir/build.make example/CMakeFiles/realsense_offset_test.dir/realsense_offset_test.cpp.o
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_offset_test.dir/build.make example/CMakeFiles/realsense_offset_test.dir/realsense_offset_test.cpp.o
 .PHONY : realsense_offset_test.cpp.o
 
 realsense_offset_test.i: realsense_offset_test.cpp.i
@@ -472,7 +472,7 @@ realsense_offset_test.i: realsense_offset_test.cpp.i
 
 # target to preprocess a source file
 realsense_offset_test.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_offset_test.dir/build.make example/CMakeFiles/realsense_offset_test.dir/realsense_offset_test.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_offset_test.dir/build.make example/CMakeFiles/realsense_offset_test.dir/realsense_offset_test.cpp.i
 .PHONY : realsense_offset_test.cpp.i
 
 realsense_offset_test.s: realsense_offset_test.cpp.s
@@ -481,7 +481,7 @@ realsense_offset_test.s: realsense_offset_test.cpp.s
 
 # target to generate assembly for a file
 realsense_offset_test.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_offset_test.dir/build.make example/CMakeFiles/realsense_offset_test.dir/realsense_offset_test.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_offset_test.dir/build.make example/CMakeFiles/realsense_offset_test.dir/realsense_offset_test.cpp.s
 .PHONY : realsense_offset_test.cpp.s
 
 realsense_sensor_example.o: realsense_sensor_example.cpp.o
@@ -490,7 +490,7 @@ realsense_sensor_example.o: realsense_sensor_example.cpp.o
 
 # target to build an object file
 realsense_sensor_example.cpp.o:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_sensor_example.dir/build.make example/CMakeFiles/realsense_sensor_example.dir/realsense_sensor_example.cpp.o
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_sensor_example.dir/build.make example/CMakeFiles/realsense_sensor_example.dir/realsense_sensor_example.cpp.o
 .PHONY : realsense_sensor_example.cpp.o
 
 realsense_sensor_example.i: realsense_sensor_example.cpp.i
@@ -499,7 +499,7 @@ realsense_sensor_example.i: realsense_sensor_example.cpp.i
 
 # target to preprocess a source file
 realsense_sensor_example.cpp.i:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_sensor_example.dir/build.make example/CMakeFiles/realsense_sensor_example.dir/realsense_sensor_example.cpp.i
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_sensor_example.dir/build.make example/CMakeFiles/realsense_sensor_example.dir/realsense_sensor_example.cpp.i
 .PHONY : realsense_sensor_example.cpp.i
 
 realsense_sensor_example.s: realsense_sensor_example.cpp.s
@@ -508,7 +508,7 @@ realsense_sensor_example.s: realsense_sensor_example.cpp.s
 
 # target to generate assembly for a file
 realsense_sensor_example.cpp.s:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_sensor_example.dir/build.make example/CMakeFiles/realsense_sensor_example.dir/realsense_sensor_example.cpp.s
+	cd /home/determ/Desktop/DetermDriver/build && $(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_sensor_example.dir/build.make example/CMakeFiles/realsense_sensor_example.dir/realsense_sensor_example.cpp.s
 .PHONY : realsense_sensor_example.cpp.s
 
 # Help Target
@@ -566,6 +566,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/determ/Desktop/DetermSensorDriver/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/determ/Desktop/DetermDriver/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/determ/Desktop/DetermSensorDriver/example
+# Install script for directory: /home/determ/Desktop/DetermDriver/example
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

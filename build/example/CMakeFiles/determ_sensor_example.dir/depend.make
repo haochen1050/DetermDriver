@@ -3,7 +3,7 @@
 
 example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.o: ../source/include/sensor/determ_sensor.h
 example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.o: ../source/include/sensor/raspberry_sensor.h
-example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.o: ../source/include/sensor/realsense_sensor.h
+example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.o: ../source/include/sensor/realsense_d421_sensor.h
 example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.o: ../example/determ_sensor_example.cpp
 example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.o: /usr/include/libcamera/libcamera/base/bound_method.h
 example/CMakeFiles/determ_sensor_example.dir/determ_sensor_example.cpp.o: /usr/include/libcamera/libcamera/base/class.h

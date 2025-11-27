@@ -1,0 +1,62 @@
+{
+    "calibration_info": {
+        "calibration_date": "2025-01-20",
+        "calibration_method": "opencv_stereo_calibration",
+        "calibrator": "calibration_tool_v1.0",
+        "notes": "Stereo calibration between Raspberry Pi Camera v3 and RealSense D421"
+    },
+    
+    "color_intrinsic": {
+        "width": 1920,
+        "height": 1080,
+        "fx": 1420.5,
+        "fy": 1421.2,
+        "cx": 960.0,
+        "cy": 540.0,
+        "distortion": {
+            "model": "brown_conrady",
+            "k1": -0.05,
+            "k2": 0.02,
+            "k3": -0.001,
+            "p1": 0.0001,
+            "p2": -0.0002
+        }
+    },
+    
+   "depth_camera_intrinsics": {
+        "fx": 461.32928466796875,
+        "fy": 461.32928466796875,
+        "cx": 324.5924377441406,
+        "cy": 242.13339233398438,
+        "coeffs": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+        ]
+    },
+        
+    "depth_to_color_extrinsic": {
+        "description": "Transformation from depth camera frame to color camera frame",
+        "rotation": [
+            0.9998, -0.0021, 0.0189,
+            0.0022,  0.9999, -0.0087,
+            -0.0189, 0.0088, 0.9998
+        ],
+        "rotation_format": "row-major 3x3 matrix",
+        "translation": [
+            0.025,
+            0.002,
+            -0.001
+        ],
+        "translation_unit": "meters"
+    },
+    
+    "calibration_quality": {
+        "reprojection_error_color": 0.45,
+        "reprojection_error_depth": 0.32,
+        "stereo_reprojection_error": 0.58,
+        "unit": "pixels"
+    }
+}

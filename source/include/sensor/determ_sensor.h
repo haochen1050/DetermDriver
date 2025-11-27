@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include "sensor/raspberry_sensor.h"
-#include "sensor/realsense_sensor.h"
 #include <chrono>
 #include <thread>
 #include <mutex>
@@ -21,12 +19,20 @@
 #include <algorithm>
 #include <numeric>
 
+// Forward declarations for sensor drivers in determ::sensor namespace
 namespace determ {
 namespace sensor {
-
-// Forward declarations
-class RealsenseSensor;
 class RaspberrySensor;
+class RealsenseSensor;
+} // namespace sensor
+} // namespace determ
+
+// Now include the actual sensor headers AFTER forward declarations
+#include "sensor/raspberry_sensor.h"
+#include "sensor/realsense_d421_sensor.h"
+
+namespace determ {
+namespace capture {
 
 /**
  * @brief Enhanced timestamped frame with better synchronization support
@@ -232,8 +238,8 @@ private:
     void SynchronizedCaptureThread();
 
     // Sensor instances
-    std::unique_ptr<RaspberrySensor> m_raspberry_sensor;
-    std::unique_ptr<RealsenseSensor> m_realsense_sensor;
+    std::unique_ptr<determ::sensor::RaspberrySensor> m_raspberry_sensor;
+    std::unique_ptr<determ::sensor::RealsenseSensor> m_realsense_sensor;
 
     // State management
     std::atomic<bool> m_is_initialized;
@@ -279,5 +285,5 @@ private:
     mutable SyncStats m_sync_stats;
 };
 
-} // namespace sensor
+} // namespace capture
 } // namespace determ

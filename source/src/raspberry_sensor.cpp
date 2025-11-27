@@ -32,7 +32,7 @@ RaspberrySensor::~RaspberrySensor()
     m_camera->release();
     m_camera.reset();
   }
-
+           
   // Stop camera manager last
   if (m_cm) {
     m_cm->stop();
@@ -289,7 +289,7 @@ bool RaspberrySensor::SetSensorColorControl(bool is_auto, float exposure_time, f
       exposure_us = std::max(min_exp, std::min(max_exp, exposure_us));
 
       m_current_controls.set(controls::ExposureTime, exposure_us);
-      std::cout << "  Exposure time: " << exposure_us << " μs (range: " << min_exp << "-" << max_exp << ")"
+      std::cout << "  Exposure time: " << exposure_us << " Î¼s (range: " << min_exp << "-" << max_exp << ")"
                 << std::endl;
     } else {
       std::cerr << "  Warning: ExposureTime control not supported" << std::endl;
@@ -347,13 +347,13 @@ void RaspberrySensor::PrintAvailableControls()
     auto it = controls.find(control_id);
     if (it != controls.end()) {
       const ControlInfo &info = it->second;
-      std::cout << "✓ " << control_id->name();
+      std::cout << "âœ“ " << control_id->name();
       if (!info.values().empty()) {
         std::cout << " (range: " << info.min().toString() << " - " << info.max().toString() << ")";
       }
       std::cout << std::endl;
     } else {
-      std::cout << "✗ " << control_id->name() << " (not supported)" << std::endl;
+      std::cout << "âœ— " << control_id->name() << " (not supported)" << std::endl;
     }
   }
 
@@ -498,39 +498,37 @@ TimestampedRaspberryFrame RaspberrySensor::GetTimestampedFrame()
         return result;
     }
 
-    // Create a new request for each frame
-    std::unique_ptr<Request> request = m_camera->createRequest();
-    if (!request) {
-        std::cerr << "Failed to create request" << std::endl;
+    // Use pre-allocated requests from the buffer pool
+    if (m_requests.empty()) {
+        std::cerr << "No requests available. Call SetupBuffers() first." << std::endl;
         return result;
     }
 
-    // Apply controls and get frame data (same logic as existing GetFrame())
+    // Get the current request from the pool (circular buffer)
+    Request *request = m_requests[m_current_buffer_index].get();
+    
+    // Reuse the request if it was previously used
+    // This clears the previous state and makes it ready for queueing again
+    request->reuse(Request::ReuseFlag::ReuseBuffers);
+    
+    // Apply current controls to the request
     if (!m_current_controls.empty()) {
-        ApplyControlsToRequest(request.get(), m_current_controls);
+        request->controls().clear();
+        ApplyControlsToRequest(request, m_current_controls);
     }
 
-    auto &buffers = m_allocator->buffers(m_stream);
-    if (buffers.empty()) {
-        std::cerr << "No buffers available" << std::endl;
-        return result;
-    }
-
-    const std::unique_ptr<FrameBuffer> &buffer = buffers[m_current_buffer_index];
-    m_current_buffer_index = (m_current_buffer_index + 1) % buffers.size();
-
-    int ret = request->addBuffer(m_stream, buffer.get());
-    if (ret < 0) {
-        std::cerr << "Failed to add buffer to request: " << ret << std::endl;
-        return result;
-    }
-
+    // Capture timestamp just before queueing
     auto frame_timestamp = std::chrono::high_resolution_clock::now();
-    ret = m_camera->queueRequest(request.get());
+    
+    // Queue the request
+    int ret = m_camera->queueRequest(request);
     if (ret < 0) {
         std::cerr << "Failed to queue request: " << ret << std::endl;
         return result;
     }
+
+    // Advance buffer index for next frame
+    m_current_buffer_index = (m_current_buffer_index + 1) % m_requests.size();
 
     // Wait for completion
     bool completed = false;
@@ -943,13 +941,13 @@ void RaspberrySensor::PrintFocusControls()
     auto it = controls.find(control_id);
     if (it != controls.end()) {
       const ControlInfo &info = it->second;
-      std::cout << "✓ " << control_id->name();
+      std::cout << "âœ“ " << control_id->name();
       if (!info.values().empty()) {
         std::cout << " (range: " << info.min().toString() << " - " << info.max().toString() << ")";
       }
       std::cout << std::endl;
     } else {
-      std::cout << "✗ " << control_id->name() << " (not supported)" << std::endl;
+      std::cout << "âœ— " << control_id->name() << " (not supported)" << std::endl;
     }
   }
 

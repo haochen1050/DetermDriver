@@ -8,7 +8,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-#include "sensor/realsense_sensor.h"
+#include "sensor/realsense_d421_sensor.h"
 
 // Function declarations
 void SaveCurrentFrames(const std::map<std::string, std::vector<uint8_t>>& frame_data, int frame_number, int width,

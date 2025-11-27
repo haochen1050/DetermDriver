@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../source/include/sensor/realsense_sensor.h
+../source/include/sensor/realsense_d421_sensor.h
 librealsense2/rs.hpp
 -
 vector
@@ -24,7 +24,7 @@ iostream
 thread
 -
 
-/home/determ/Desktop/DetermSensorDriver/example/realsense_sensor_example.cpp
+/home/determ/Desktop/DetermDriver/example/realsense_sensor_example.cpp
 chrono
 -
 fstream
@@ -33,8 +33,8 @@ iostream
 -
 opencv2/opencv.hpp
 -
-sensor/realsense_sensor.h
-/home/determ/Desktop/DetermSensorDriver/example/sensor/realsense_sensor.h
+sensor/realsense_d421_sensor.h
+/home/determ/Desktop/DetermDriver/example/sensor/realsense_d421_sensor.h
 
 /usr/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp

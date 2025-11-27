@@ -3,7 +3,7 @@
 
 example/CMakeFiles/raspberry_sensor_example.dir/raspberry_sensor_example.cpp.o
  ../source/include/sensor/raspberry_sensor.h
- /home/determ/Desktop/DetermSensorDriver/example/raspberry_sensor_example.cpp
+ /home/determ/Desktop/DetermDriver/example/raspberry_sensor_example.cpp
  /usr/include/libcamera/libcamera/base/bound_method.h
  /usr/include/libcamera/libcamera/base/class.h
  /usr/include/libcamera/libcamera/base/compiler.h

@@ -4,11 +4,13 @@
 #include <algorithm>
 
 
-using determ::sensor::DetermSensor;
-using determ::sensor::SynchronizedFrameSet;
-using determ::sensor::SyncMode;
-using determ::sensor::TimestampedFrame;
-using determ::sensor::SyncStats;
+using determ::capture::DetermSensor;
+using determ::capture::SynchronizedFrameSet;
+using determ::capture::SyncMode;
+using determ::capture::TimestampedFrame;
+using determ::capture::SyncStats;
+using determ::sensor::RaspberrySensor;
+using determ::sensor::RealsenseSensor;
 // // Valid stream names
 // const std::vector<std::string> DetermSensor::kMValidStreams = {
 //     "color", "depth", "infrared1", "infrared2"
@@ -101,7 +103,7 @@ void SyncStats::calculateFPS() {
 }
 
 void SyncStats::printStats(bool detailed) const {
-    std::cout << "\n📊 === Synchronization Statistics ===" << std::endl;
+    std::cout << "\nðŸ“Š === Synchronization Statistics ===" << std::endl;
     std::cout << "   Captured: " << total_frames_captured << " frames" << std::endl;
     std::cout << "   Synchronized: " << total_frames_synchronized << " frames" << std::endl;
     std::cout << "   Dropped: " << total_frames_dropped << " frames" << std::endl;
@@ -134,7 +136,7 @@ DetermSensor::DetermSensor()
       m_infrared_enabled(false),
       m_color_width(1920),
       m_color_height(1080),
-      m_color_format("RGB888"),
+      m_color_format("YUYV"),
       m_color_configured(false),
       m_depth_width(640),
       m_depth_height(480),
@@ -189,8 +191,8 @@ int DetermSensor::Initialize()
 
   // Print initialization summary
   std::cout << "Sensor initialization summary:" << std::endl;
-  std::cout << "  Color sensor (Raspberry Pi): " << (color_result == 0 ? "✓ Success" : "✗ Failed") << std::endl;
-  std::cout << "  Depth sensor (RealSense): " << (depth_result == 0 ? "✓ Success" : "✗ Failed") << std::endl;
+  std::cout << "  Color sensor (Raspberry Pi): " << (color_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
+  std::cout << "  Depth sensor (RealSense): " << (depth_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
 
   return 0;
 }
@@ -997,10 +999,10 @@ int DetermSensor::Start()
   // Print start summary
   std::cout << "Sensor start summary:" << std::endl;
   if (m_color_enabled) {
-    std::cout << "  Color sensor: " << (color_result == 0 ? "✓ Success" : "✗ Failed") << std::endl;
+    std::cout << "  Color sensor: " << (color_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
   }
   if (m_depth_enabled || m_infrared_enabled) {
-    std::cout << "  Depth/IR sensor: " << (depth_result == 0 ? "✓ Success" : "✗ Failed") << std::endl;
+    std::cout << "  Depth/IR sensor: " << (depth_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
   }
 
   return 0;
@@ -1067,10 +1069,10 @@ int DetermSensor::Stop()
   // Print stop summary
   std::cout << "Sensor stop summary:" << std::endl;
   if (m_color_enabled) {
-    std::cout << "  Color sensor: " << (color_result == 0 ? "✓ Success" : "✗ Failed") << std::endl;
+    std::cout << "  Color sensor: " << (color_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
   }
   if (m_depth_enabled || m_infrared_enabled) {
-    std::cout << "  Depth/IR sensor: " << (depth_result == 0 ? "✓ Success" : "✗ Failed") << std::endl;
+    std::cout << "  Depth/IR sensor: " << (depth_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
   }
 
   return (color_result == 0 && depth_result == 0) ? 0 : -1;

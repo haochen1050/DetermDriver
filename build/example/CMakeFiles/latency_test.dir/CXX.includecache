@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/determ/Desktop/DetermSensorDriver/example/latency_test.cpp
+/home/determ/Desktop/DetermDriver/example/latency_test.cpp
 libcamera/camera_manager.h
 -
 libcamera/framebuffer_allocator.h

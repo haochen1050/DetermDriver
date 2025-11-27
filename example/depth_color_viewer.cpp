@@ -5,7 +5,7 @@
 #include <iomanip>
 #include <sstream>
 
-using namespace determ::sensor;
+using namespace determ::capture;
 
 class DetermSensorVisualizer {
 public:
@@ -331,7 +331,7 @@ void runDetermSensorVisualization() {
     }
     
     // Configure color sensor
-    if (sensor.SetColorSensorConfig(640, 480, "RGB888") != 0) {
+    if (sensor.SetColorSensorConfig(640, 480, "YUYV") != 0) {
         std::cerr << "Failed to configure color sensor" << std::endl;
         return;
     }
@@ -353,7 +353,7 @@ void runDetermSensorVisualization() {
     }
     
     // Start synchronized capture with hybrid mode (best of both worlds)
-    if (!sensor.StartSynchronizedCapture(SyncMode::HARDWARE_SYNC)) {
+    if (!sensor.StartSynchronizedCapture(SyncMode::HYBRID_SYNC)) {
         std::cerr << "Failed to start synchronized capture" << std::endl;
         sensor.Stop();
         return;

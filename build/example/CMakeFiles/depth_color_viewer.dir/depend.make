@@ -3,7 +3,7 @@
 
 example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o: ../source/include/sensor/determ_sensor.h
 example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o: ../source/include/sensor/raspberry_sensor.h
-example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o: ../source/include/sensor/realsense_sensor.h
+example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o: ../source/include/sensor/realsense_d421_sensor.h
 example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o: ../example/depth_color_viewer.cpp
 example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o: /usr/include/libcamera/libcamera/base/bound_method.h
 example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o: /usr/include/libcamera/libcamera/base/class.h

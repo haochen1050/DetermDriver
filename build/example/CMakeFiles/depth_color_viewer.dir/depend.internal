@@ -4,8 +4,8 @@
 example/CMakeFiles/depth_color_viewer.dir/depth_color_viewer.cpp.o
  ../source/include/sensor/determ_sensor.h
  ../source/include/sensor/raspberry_sensor.h
- ../source/include/sensor/realsense_sensor.h
- /home/determ/Desktop/DetermSensorDriver/example/depth_color_viewer.cpp
+ ../source/include/sensor/realsense_d421_sensor.h
+ /home/determ/Desktop/DetermDriver/example/depth_color_viewer.cpp
  /usr/include/libcamera/libcamera/base/bound_method.h
  /usr/include/libcamera/libcamera/base/class.h
  /usr/include/libcamera/libcamera/base/compiler.h

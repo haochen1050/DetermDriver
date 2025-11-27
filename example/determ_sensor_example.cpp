@@ -13,7 +13,7 @@
 
 #include "sensor/determ_sensor.h"
 
-using namespace determ::sensor;
+using namespace determ::capture;
 
 // Global flag for graceful shutdown
 volatile bool g_running = true;

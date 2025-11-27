@@ -1,36 +1,10 @@
-determ@raspberrypi:~/Desktop/DetermSensorDriver/calibration/checkerboard $ python rgb_to_depth_calibration.py 
-[261:34:54.306412203] [180733]  INFO Camera camera_manager.cpp:297 libcamera v0.0.5+83-bde9b04f
-[261:34:54.441842105] [180743]  INFO RPI vc4.cpp:437 Registered camera /base/soc/i2c0mux/i2c@1/imx708@1a to Unicam device /dev/media1 and ISP device /dev/media2
-[261:34:54.442055176] [180743]  INFO RPI pipeline_base.cpp:1101 Using configuration file '/usr/share/libcamera/pipeline/rpi/vc4/rpi_apps.yaml'
-[261:34:54.539024999] [180743]  WARN V4L2 v4l2_pixelformat.cpp:328 Unsupported V4L2 pixel format <INVALID>
-[261:34:54.539196200] [180743]  WARN V4L2 v4l2_pixelformat.cpp:328 Unsupported V4L2 pixel format Z16 
-[261:34:54.539267755] [180743] ERROR UVC uvcvideo.cpp:463 Camera /base/scb/pcie@7d500000/pci@0,0/usb@0,0-1:1.0-8086:1155 (Intel(R) RealSense(TM) Depth Ca) doesn't expose any supported format
-[261:34:54.549159543] [180733]  INFO Camera camera.cpp:1033 configuring streams: (0) 640x480-XRGB8888 (1) 1536x864-SBGGR10_CSI2P
-[261:34:54.550353876] [180743]  INFO RPI vc4.cpp:565 Sensor: /base/soc/i2c0mux/i2c@1/imx708@1a - Selected sensor format: 1536x864-SBGGR10_1X10 - Selected unicam format: 1536x864-pBAA
-RealSense Camera Information:
-Depth intrinsics: fx=461.33, fy=461.33
-IR intrinsics: fx=461.33, fy=461.33
-Depth to IR transform available: rotation: [1, 0, 0, 0, 1, 0, 0, 0, 1]
-translation: [0, 0, 0]
-✅ RGB camera calibration loaded from rgb_camera_calibration.pkl
-
-=== Depth-Color Camera Calibration ===
-Instructions:
-- Position checkerboard where both cameras can see it clearly
-- Ensure good depth measurement (avoid reflective surfaces)
-- Pattern should be 0.5m - 2m from cameras
-- Press 's' when pattern detected in BOTH cameras with valid depth
-- Collect 20-25 high-quality pairs
-- Press 'q' to finish
-❌ Error: all the input array dimensions for the concatenation axis must match exactly, but along dimension 2, the array at index 0 has size 4 and the array at index 1 has size 3
-Make sure you have run: python3 rgb_camera_calibration.py
-
-[25:59:27.833933252] [8568] FATAL default pipeline_handler.cpp:533 assertion "!req->hasPendingBuffers()" failed in completeRequest()
-Backtrace:
-
-Aborted
-
-[26:28:26.211138139] [11800] FATAL default pipeline_handler.cpp:533 assertion "!req->hasPendingBuffers()" failed in completeRequest()
-Backtrace:
-
-Aborted
+[49:25:14.606796224] [36181] ERROR Camera camera.cpp:1135 Request(0:C:0/1:0) is not valid
+Failed to queue request: -22
+Failed to get frame, retrying...
+[49:25:14.617120350] [36181] ERROR Camera camera.cpp:1135 Request(0:C:0/1:0) is not valid
+Failed to queue request: -22
+Failed to get frame, retrying...
+[49:25:14.627431254] [36181] ERROR Camera camera.cpp:1135 Request(0:C:0/1:0) is not valid
+Failed to queue request: -22
+Failed to get frame, retrying...
+[49:25:14.637706214] [36181] ERROR Camera camera.cpp:1135 Request(0:C:0/1:0) is not valid

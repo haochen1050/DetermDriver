@@ -1,4 +1,4 @@
-# Install script for directory: /home/determ/Desktop/DetermSensorDriver/source
+# Install script for directory: /home/determ/Desktop/DetermDriver/source
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -55,8 +55,8 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     endif()
   endforeach()
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/aarch64-linux-gnu" TYPE SHARED_LIBRARY FILES
-    "/home/determ/Desktop/DetermSensorDriver/build/lib/libdetermsensor.so.1.0.0"
-    "/home/determ/Desktop/DetermSensorDriver/build/lib/libdetermsensor.so.1"
+    "/home/determ/Desktop/DetermDriver/build/lib/libdetermsensor.so.1.0.0"
+    "/home/determ/Desktop/DetermDriver/build/lib/libdetermsensor.so.1"
     )
   foreach(file
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/aarch64-linux-gnu/libdetermsensor.so.1.0.0"
@@ -82,7 +82,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/aarch64-linux-gnu/libdetermsensor.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/aarch64-linux-gnu" TYPE SHARED_LIBRARY FILES "/home/determ/Desktop/DetermSensorDriver/build/lib/libdetermsensor.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/aarch64-linux-gnu" TYPE SHARED_LIBRARY FILES "/home/determ/Desktop/DetermDriver/build/lib/libdetermsensor.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/aarch64-linux-gnu/libdetermsensor.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/aarch64-linux-gnu/libdetermsensor.so")
     file(RPATH_CHANGE
@@ -97,9 +97,9 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/sensor" TYPE FILE FILES
-    "/home/determ/Desktop/DetermSensorDriver/source/include/sensor/determ_sensor.h"
-    "/home/determ/Desktop/DetermSensorDriver/source/include/sensor/raspberry_sensor.h"
-    "/home/determ/Desktop/DetermSensorDriver/source/include/sensor/realsense_sensor.h"
+    "/home/determ/Desktop/DetermDriver/source/include/sensor/determ_sensor.h"
+    "/home/determ/Desktop/DetermDriver/source/include/sensor/raspberry_sensor.h"
+    "/home/determ/Desktop/DetermDriver/source/include/sensor/realsense_d421_sensor.h"
     )
 endif()
 

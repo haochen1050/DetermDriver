@@ -3,7 +3,7 @@
 
 source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o: ../source/include/sensor/determ_sensor.h
 source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o: ../source/include/sensor/raspberry_sensor.h
-source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o: ../source/include/sensor/realsense_sensor.h
+source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o: ../source/include/sensor/realsense_d421_sensor.h
 source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o: ../source/src/determ_sensor.cpp
 source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o: /usr/include/libcamera/libcamera/base/bound_method.h
 source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o: /usr/include/libcamera/libcamera/base/class.h
@@ -63,6 +63,6 @@ source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o: /usr/include/libc
 source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o: /usr/include/libcamera/libcamera/transform.h
 source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o: /usr/include/libcamera/libcamera/version.h
 
-source/CMakeFiles/determsensor.dir/src/realsense_sensor.cpp.o: ../source/include/sensor/realsense_sensor.h
-source/CMakeFiles/determsensor.dir/src/realsense_sensor.cpp.o: ../source/src/realsense_sensor.cpp
+source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o: ../source/include/sensor/realsense_d421_sensor.h
+source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o: ../source/src/realsense_d421_sensor.cpp
 

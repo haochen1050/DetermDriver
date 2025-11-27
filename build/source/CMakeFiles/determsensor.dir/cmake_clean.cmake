@@ -5,7 +5,7 @@ file(REMOVE_RECURSE
   "../lib/libdetermsensor.so.1.0.0"
   "CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o"
   "CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o"
-  "CMakeFiles/determsensor.dir/src/realsense_sensor.cpp.o"
+  "CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

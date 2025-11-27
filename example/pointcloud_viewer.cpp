@@ -15,7 +15,7 @@
 #include <nlohmann/json.hpp>
 #include <memory>
 
-using namespace determ::sensor;
+using namespace determ::capture;
 using namespace cv;
 using json = nlohmann::json;
 

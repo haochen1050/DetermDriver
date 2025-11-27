@@ -1,4 +1,4 @@
-#include "sensor/realsense_sensor.h"
+#include "sensor/realsense_d421_sensor.h"
 
 using determ::sensor::RealsenseSensor;
 using determ::sensor::RealsenseFrameSet;

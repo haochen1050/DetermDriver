@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/determ/Desktop/DetermSensorDriver/example/raspberry_sensor_example.cpp" "/home/determ/Desktop/DetermSensorDriver/build/example/CMakeFiles/raspberry_sensor_example.dir/raspberry_sensor_example.cpp.o"
+  "/home/determ/Desktop/DetermDriver/example/raspberry_sensor_example.cpp" "/home/determ/Desktop/DetermDriver/build/example/CMakeFiles/raspberry_sensor_example.dir/raspberry_sensor_example.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -25,7 +25,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/determ/Desktop/DetermSensorDriver/build/source/CMakeFiles/determsensor.dir/DependInfo.cmake"
+  "/home/determ/Desktop/DetermDriver/build/source/CMakeFiles/determsensor.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.
