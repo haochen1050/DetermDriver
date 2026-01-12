@@ -289,7 +289,7 @@ bool RaspberrySensor::SetSensorColorControl(bool is_auto, float exposure_time, f
       exposure_us = std::max(min_exp, std::min(max_exp, exposure_us));
 
       m_current_controls.set(controls::ExposureTime, exposure_us);
-      std::cout << "  Exposure time: " << exposure_us << " Î¼s (range: " << min_exp << "-" << max_exp << ")"
+      std::cout << "  Exposure time: " << exposure_us << " ÃŽÂ¼s (range: " << min_exp << "-" << max_exp << ")"
                 << std::endl;
     } else {
       std::cerr << "  Warning: ExposureTime control not supported" << std::endl;
@@ -347,13 +347,13 @@ void RaspberrySensor::PrintAvailableControls()
     auto it = controls.find(control_id);
     if (it != controls.end()) {
       const ControlInfo &info = it->second;
-      std::cout << "âœ“ " << control_id->name();
+      std::cout << "Ã¢Å“â€œ " << control_id->name();
       if (!info.values().empty()) {
         std::cout << " (range: " << info.min().toString() << " - " << info.max().toString() << ")";
       }
       std::cout << std::endl;
     } else {
-      std::cout << "âœ— " << control_id->name() << " (not supported)" << std::endl;
+      std::cout << "Ã¢Å“â€” " << control_id->name() << " (not supported)" << std::endl;
     }
   }
 
@@ -362,6 +362,14 @@ void RaspberrySensor::PrintAvailableControls()
 
 int RaspberrySensor::SetupBuffers()
 {
+  // If allocator already exists, free it first to avoid "buffers already allocated" error
+  if (m_allocator) {
+    std::cout << "Cleaning up existing allocator before re-setup..." << std::endl;
+    m_requests.clear();  // Clear requests first
+    m_allocator->free(m_stream);  // Free existing buffers
+    m_allocator.reset();  // Reset the allocator
+  }
+  
   // Create frame buffer allocator
   m_allocator = std::make_unique<FrameBufferAllocator>(m_camera);
 
@@ -416,6 +424,7 @@ int RaspberrySensor::ApplyControlsToRequest(Request *request, const ControlList 
 
 int RaspberrySensor::Start()
 {
+
   if (m_is_running) {
     std::cout << "Camera is already running" << std::endl;
     return 0;
@@ -424,6 +433,36 @@ int RaspberrySensor::Start()
   if (!m_config) {
     std::cerr << "Camera not configured. Call SetSensorConfig first." << std::endl;
     return -1;
+  }
+  std::cout << "═══════════════════════════════════════" << std::endl;
+  std::cout << "RaspberrySensor::Start() called" << std::endl;
+  std::cout << "  Process ID: " << getpid() << std::endl;
+  std::cout << "  Thread ID: " << std::this_thread::get_id() << std::endl;
+  std::cout << "  m_is_running: " << (m_is_running ? "true" : "false") << std::endl;
+  std::cout << "  Stack trace:" << std::endl;
+  // Print stack trace here if possible
+  std::cout << "═══════════════════════════════════════" << std::endl;
+
+  // CRITICAL FIX: Check if buffers need re-initialization
+  // This can happen if Stop() was called (which clears m_requests)
+  // or if GetSensorIntrinsicAndExtinsic() temporarily started/stopped the sensor
+  if (m_requests.empty() || !m_allocator) {
+    std::cout << "Buffers not initialized, setting up now..." << std::endl;
+    
+    // IMPORTANT: Ensure camera is stopped before setting up buffers
+    // SetupBuffers() requires the camera to be in configured-but-not-started state
+    int stop_ret = m_camera->stop();
+    if (stop_ret != 0 && stop_ret != -EACCES) {
+      // -EACCES means already stopped, which is fine
+      std::cerr << "Warning: Failed to ensure camera stopped state: " << stop_ret << std::endl;
+    }
+    
+    int ret = SetupBuffers();
+    if (ret != 0) {
+      std::cerr << "Failed to setup buffers before starting camera" << std::endl;
+      return ret;
+    }
+    std::cout << "Buffers initialized: " << m_requests.size() << " requests created" << std::endl;
   }
 
   // Start the camera
@@ -941,13 +980,13 @@ void RaspberrySensor::PrintFocusControls()
     auto it = controls.find(control_id);
     if (it != controls.end()) {
       const ControlInfo &info = it->second;
-      std::cout << "âœ“ " << control_id->name();
+      std::cout << "Ã¢Å“â€œ " << control_id->name();
       if (!info.values().empty()) {
         std::cout << " (range: " << info.min().toString() << " - " << info.max().toString() << ")";
       }
       std::cout << std::endl;
     } else {
-      std::cout << "âœ— " << control_id->name() << " (not supported)" << std::endl;
+      std::cout << "Ã¢Å“â€” " << control_id->name() << " (not supported)" << std::endl;
     }
   }
 

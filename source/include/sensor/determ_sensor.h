@@ -1,4 +1,5 @@
-// Enhanced determ_sensor.h with integrated synchronization algorithms
+// determ_sensor.h - Simplified version using native timestamps
+// Removed SyncMode complexity - uses timestamps directly from both sensors
 
 #pragma once
 
@@ -19,6 +20,7 @@
 #include <algorithm>
 #include <numeric>
 
+
 // Forward declarations for sensor drivers in determ::sensor namespace
 namespace determ {
 namespace sensor {
@@ -31,11 +33,37 @@ class RealsenseSensor;
 #include "sensor/raspberry_sensor.h"
 #include "sensor/realsense_d421_sensor.h"
 
+
+
+
 namespace determ {
 namespace capture {
+    
+/**
+ * @brief Simple calibration data using native RealSense structures
+ */
+struct CalibrationData {
+    rs2_intrinsics color_intrinsics;
+    rs2_intrinsics depth_intrinsics;
+    rs2_extrinsics depth_to_color;
+    
+    CalibrationData() {
+        memset(&color_intrinsics, 0, sizeof(rs2_intrinsics));
+        memset(&depth_intrinsics, 0, sizeof(rs2_intrinsics));
+        memset(&depth_to_color, 0, sizeof(rs2_extrinsics));
+        color_intrinsics.model = RS2_DISTORTION_BROWN_CONRADY;
+        depth_intrinsics.model = RS2_DISTORTION_BROWN_CONRADY;
+    }
+    
+    void print() const;  
+};
 
 /**
- * @brief Enhanced timestamped frame with better synchronization support
+ * @brief Timestamped frame with native timestamp support
+ * 
+ * Stores frames with their native timestamps:
+ * - RealSense frames: hardware_timestamp_ms from sensor
+ * - Raspberry Pi frames: software_timestamp from system clock
  */
 struct TimestampedFrame {
     std::string stream_name;
@@ -83,7 +111,7 @@ struct TimestampedFrame {
 };
 
 /**
- * @brief Enhanced synchronized frame set with better statistics
+ * @brief Synchronized frame set with timestamp-based synchronization
  */
 struct SynchronizedFrameSet {
     std::map<std::string, TimestampedFrame> frames;
@@ -133,24 +161,21 @@ struct SyncStats {
 };
 
 /**
- * @brief Synchronization modes
- */
-enum class SyncMode {
-    SOFTWARE_SYNC,   // Use system timestamps only
-    HARDWARE_SYNC,   // Use hardware timestamps with clock calibration
-    HYBRID_SYNC      // Use hardware when available, fallback to software
-};
-
-/**
- * @brief Enhanced DetermSensor with integrated synchronization algorithms
+ * @brief DetermSensor with simplified timestamp-based synchronization
+ * 
+ * Uses native timestamps from both sensors:
+ * - RealSense D421: Hardware timestamps (GLOBAL_TIME domain)
+ * - Raspberry Pi Camera: Software timestamps (high_resolution_clock)
+ * 
+ * Frames are synchronized by comparing timestamps directly.
  */
 class DetermSensor {
 public:
     using FrameCallback = std::function<void(const SynchronizedFrameSet&)>;
     
     // Valid stream names
-    // static const std::vector<std::string> kMValidStreams;
     const std::vector<std::string> kMValidStreams = {"color", "depth", "infrared1", "infrared2"};
+
 
     DetermSensor();
     ~DetermSensor();
@@ -165,16 +190,16 @@ public:
     bool IsValidStream(const std::string& stream_name) const;
 
     // Synchronization configuration
-    bool SetSynchronizationMode(SyncMode mode);
     bool SetSyncTolerance(double tolerance_ms);
     bool SetSyncBufferSize(size_t buffer_size);
+    double GetSyncTolerance() const { return m_sync_tolerance_ms; }
     
-    // Enhanced frame capture with synchronization algorithms
+    // Enhanced frame capture with synchronization
     SynchronizedFrameSet GetSynchronizedFrames(double timeout_ms = 50.0);
     bool GetLatestSynchronizedFrames(SynchronizedFrameSet& frameset);
     
     // Continuous synchronized capture
-    bool StartSynchronizedCapture(SyncMode mode = SyncMode::HYBRID_SYNC);
+    bool StartSynchronizedCapture();
     bool StopSynchronizedCapture();
     
     // Frame callback for real-time processing
@@ -190,7 +215,6 @@ public:
     bool TriggerColorAutofocus();
     bool RefreshColorAutofocus();
     bool SetDepthSensorControl(bool auto_exposure, float manual_exposure = 8500.0f, float gain = 16.0f);
-    bool SetInfraredSensorControl(bool auto_exposure, float manual_exposure = 8500.0f, float gain = 16.0f);
     bool SetLaserPower(float power);
     bool SetDepthUnits(float units);
 
@@ -213,7 +237,18 @@ public:
     bool IsRunning() const { return m_is_running; }
     bool IsColorSensorEnabled() const { return m_color_enabled; }
     bool IsDepthSensorEnabled() const { return m_depth_enabled; }
-    bool IsInfraredSensorEnabled() const { return m_infrared_enabled; }
+    bool IsSynchronizedCaptureActive() const { return m_sync_capture_active; }
+
+    // Calibration methods
+    bool LoadCalibration(const std::string& filepath);
+    bool SaveCalibration(const std::string& filepath) const;
+    bool HasCalibration() const { return m_has_calibration; }
+    void PrintCalibration() const { m_calibration.print(); }
+
+    // Get calibration data (native RealSense types)
+    const rs2_intrinsics& GetColorIntrinsics() const { return m_calibration.color_intrinsics; }
+    const rs2_intrinsics& GetDepthIntrinsics() const { return m_calibration.depth_intrinsics; }
+    const rs2_extrinsics& GetDepthToColorExtrinsics() const { return m_calibration.depth_to_color; }
 
 private:
     // Initialization helpers
@@ -224,18 +259,18 @@ private:
     int StopColorSensor();
     int StopDepthSensor();
 
-    // Synchronization algorithms
-    bool CaptureFramesWithSoftwareSync(SynchronizedFrameSet& frameset);
-    bool CaptureFramesWithHardwareSync(SynchronizedFrameSet& frameset);
-    bool CaptureFramesWithHybridSync(SynchronizedFrameSet& frameset);
-    
-    // Advanced synchronization methods
+    // Synchronization helpers
+    void captureAndBufferFrames();  // Captures frames from both sensors and adds to buffers
     void addFrameToBuffer(TimestampedFrame&& frame);
     bool findSynchronizedFrames(SynchronizedFrameSet& frame_set);
     void cleanupOldFrames();
     
     // Continuous capture thread
     void SynchronizedCaptureThread();
+
+    // JSON parsing helpers
+    int parseJsonInt(const std::string& json, const std::string& key, size_t start_pos);
+    float parseJsonFloat(const std::string& json, const std::string& key, size_t start_pos);
 
     // Sensor instances
     std::unique_ptr<determ::sensor::RaspberrySensor> m_raspberry_sensor;
@@ -250,7 +285,6 @@ private:
     std::vector<std::string> m_enabled_streams;
     bool m_color_enabled;
     bool m_depth_enabled;
-    bool m_infrared_enabled;
 
     // Sensor configuration
     int m_color_width, m_color_height;
@@ -260,7 +294,6 @@ private:
     bool m_depth_configured;
 
     // Synchronization configuration
-    SyncMode m_sync_mode;
     double m_sync_tolerance_ms;
     size_t m_sync_buffer_size;
 
@@ -283,6 +316,10 @@ private:
 
     // Statistics
     mutable SyncStats m_sync_stats;
+
+    // Calibration data
+    CalibrationData m_calibration;
+    bool m_has_calibration;
 };
 
 } // namespace capture

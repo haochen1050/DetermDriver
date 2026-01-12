@@ -189,17 +189,30 @@ determsensor/fast:
 .PHONY : determsensor/fast
 
 #=============================================================================
-# Target rules for targets named raspberry_sensor_example
+# Target rules for targets named advanced_buffered_sync_example
 
 # Build rule for target.
-raspberry_sensor_example: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 raspberry_sensor_example
-.PHONY : raspberry_sensor_example
+advanced_buffered_sync_example: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 advanced_buffered_sync_example
+.PHONY : advanced_buffered_sync_example
 
 # fast build rule for target.
-raspberry_sensor_example/fast:
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/build
-.PHONY : raspberry_sensor_example/fast
+advanced_buffered_sync_example/fast:
+	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/advanced_buffered_sync_example.dir/build.make example/CMakeFiles/advanced_buffered_sync_example.dir/build
+.PHONY : advanced_buffered_sync_example/fast
+
+#=============================================================================
+# Target rules for targets named pointcloud_viewer
+
+# Build rule for target.
+pointcloud_viewer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pointcloud_viewer
+.PHONY : pointcloud_viewer
+
+# fast build rule for target.
+pointcloud_viewer/fast:
+	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/build
+.PHONY : pointcloud_viewer/fast
 
 #=============================================================================
 # Target rules for targets named realsense_sensor_example
@@ -215,82 +228,17 @@ realsense_sensor_example/fast:
 .PHONY : realsense_sensor_example/fast
 
 #=============================================================================
-# Target rules for targets named determ_sensor_example
+# Target rules for targets named raspberry_sensor_example
 
 # Build rule for target.
-determ_sensor_example: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 determ_sensor_example
-.PHONY : determ_sensor_example
+raspberry_sensor_example: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 raspberry_sensor_example
+.PHONY : raspberry_sensor_example
 
 # fast build rule for target.
-determ_sensor_example/fast:
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/determ_sensor_example.dir/build.make example/CMakeFiles/determ_sensor_example.dir/build
-.PHONY : determ_sensor_example/fast
-
-#=============================================================================
-# Target rules for targets named realsense_offset_test
-
-# Build rule for target.
-realsense_offset_test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 realsense_offset_test
-.PHONY : realsense_offset_test
-
-# fast build rule for target.
-realsense_offset_test/fast:
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_offset_test.dir/build.make example/CMakeFiles/realsense_offset_test.dir/build
-.PHONY : realsense_offset_test/fast
-
-#=============================================================================
-# Target rules for targets named pointcloud_viewer_org
-
-# Build rule for target.
-pointcloud_viewer_org: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pointcloud_viewer_org
-.PHONY : pointcloud_viewer_org
-
-# fast build rule for target.
-pointcloud_viewer_org/fast:
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer_org.dir/build.make example/CMakeFiles/pointcloud_viewer_org.dir/build
-.PHONY : pointcloud_viewer_org/fast
-
-#=============================================================================
-# Target rules for targets named depth_color_viewer
-
-# Build rule for target.
-depth_color_viewer: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 depth_color_viewer
-.PHONY : depth_color_viewer
-
-# fast build rule for target.
-depth_color_viewer/fast:
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/depth_color_viewer.dir/build.make example/CMakeFiles/depth_color_viewer.dir/build
-.PHONY : depth_color_viewer/fast
-
-#=============================================================================
-# Target rules for targets named latency_test
-
-# Build rule for target.
-latency_test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 latency_test
-.PHONY : latency_test
-
-# fast build rule for target.
-latency_test/fast:
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/latency_test.dir/build.make example/CMakeFiles/latency_test.dir/build
-.PHONY : latency_test/fast
-
-#=============================================================================
-# Target rules for targets named pointcloud_viewer
-
-# Build rule for target.
-pointcloud_viewer: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pointcloud_viewer
-.PHONY : pointcloud_viewer
-
-# fast build rule for target.
-pointcloud_viewer/fast:
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/build
-.PHONY : pointcloud_viewer/fast
+raspberry_sensor_example/fast:
+	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/build
+.PHONY : raspberry_sensor_example/fast
 
 # Help Target
 help:
@@ -304,14 +252,10 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... depth_color_viewer"
-	@echo "... determ_sensor_example"
+	@echo "... advanced_buffered_sync_example"
 	@echo "... determsensor"
-	@echo "... latency_test"
 	@echo "... pointcloud_viewer"
-	@echo "... pointcloud_viewer_org"
 	@echo "... raspberry_sensor_example"
-	@echo "... realsense_offset_test"
 	@echo "... realsense_sensor_example"
 .PHONY : help
 

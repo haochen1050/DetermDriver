@@ -1,0 +1,72 @@
+Depth-to-Color Camera Calibration Summary
+==========================================
+Timestamp: 20251203_111733
+Calibration Type: Depth-to-Color Stereo (RealSense D435i + Raspberry Pi Camera)
+
+Pattern Information:
+- Pattern Size: 11 x 8 corners
+- Square Size: 30.0 mm
+- Number of Calibration Pairs: 19
+- Total Calibration Points: 1672
+
+Camera Information:
+Depth Camera (RealSense):
+- Focal Length: fx=462.18, fy=462.18
+- Principal Point: cx=326.87, cy=246.22
+
+Color Camera (Raspberry Pi):
+- Camera Matrix:
+[[542.76105469   0.         323.29991923]
+ [  0.         542.96477838 240.01483436]
+ [  0.           0.           1.        ]]
+- Distortion Coefficients: [-1.64966065e-02 -5.65046533e-01 -1.51187014e-03  3.16284230e-03
+  2.04962364e+00]
+
+Calibration Results:
+- Mean Reprojection Error: 2.3417 ± 3.1021 pixels
+- Maximum Reprojection Error: 20.2243 pixels
+- Baseline Distance: 36.27 mm
+- Rotation Angle: 1.69 degrees
+
+Extrinsic Parameters (Depth → Color):
+Rotation Matrix:
+[[ 0.99997422 -0.00550615  0.00460836]
+ [ 0.0053718   0.99957435  0.02867528]
+ [-0.00476429 -0.02864978  0.99957816]]
+
+Translation Vector (meters):
+[ 0.03528195  0.00390446 -0.00745548]
+
+Rotation Vector:
+[-0.0286667   0.00468701  0.00543976]
+
+Quality Assessment:
+- Mean Error < 1.0 pixel: ❌ Poor
+- Standard Deviation < 0.5: ❌ Inconsistent
+- Number of Pairs >= 20: ⚠️ Minimal
+
+Transformation Summary:
+- The color camera is positioned 36.3mm from the depth camera
+- The depth camera is rotated 1.7° relative to the color camera
+- Translation: X=35.3mm, Y=3.9mm, Z=-7.5mm
+
+Usage Notes:
+- Use this calibration to transform 3D points from depth camera coordinates to color camera coordinates
+- Apply: P_color_coords = R * P_depth_coords + T
+- Then project to color image: p_color_image = K_color * P_color_coords
+
+Files Generated:
+- depth_to_color_calibration.pkl (local & config/)
+- depth_to_color_calibration.xml (local & config/)
+- depth_to_color_calibration.json (local & config/)
+- camera_config.json (local & config/) - Your requested format
+- depth_to_color_calibration_summary.txt (local & config/)
+
+Error Statistics:
+- Minimum Error: 0.0238 pixels
+- 25th Percentile: 0.6464 pixels
+- Median Error: 1.0530 pixels
+- 75th Percentile: 2.0101 pixels
+- 95th Percentile: 10.1293 pixels
+
+Note: All calibration files have been saved both locally and in the ../../config directory.

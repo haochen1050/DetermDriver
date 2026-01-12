@@ -1,6 +1,0 @@
-/usr/include/libcamera/libcamera/stream.h:52:7: error: ‘optional’ in namespace ‘std’ does not name a template type
-   52 |  std::optional<ColorSpace> colorSpace;
-      |       ^~~~~~~~
-/usr/include/libcamera/libcamera/stream.h:52:2: note: ‘std::optional’ is only available from C++17 onwards
-   52 |  std::optional<ColorSpace> colorSpace;
-      |  ^~~

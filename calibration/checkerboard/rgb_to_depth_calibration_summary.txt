@@ -1,6 +1,6 @@
 Depth-Color Camera Calibration Summary
 =========================================
-Timestamp: 20250922_135813
+Timestamp: 20251203_102456
 Calibration Type: Depth-Color Stereo (RealSense D435i + Raspberry Pi Camera)
 
 Pattern Information:
@@ -11,44 +11,44 @@ Pattern Information:
 
 Camera Information:
 Depth Camera (RealSense):
-- Focal Length: fx=461.33, fy=461.33
-- Principal Point: cx=324.59, cy=242.13
+- Focal Length: fx=462.18, fy=462.18
+- Principal Point: cx=326.87, cy=246.22
 
 Color Camera (Raspberry Pi):
 - Camera Matrix:
-[[541.15412629   0.         322.76223738]
- [  0.         541.18394017 245.13495424]
+[[542.76105469   0.         323.29991923]
+ [  0.         542.96477838 240.01483436]
  [  0.           0.           1.        ]]
-- Distortion Coefficients: [-5.94205850e-02  7.24135370e-02  5.12143246e-04 -1.89740685e-05
-  7.05105297e-02]
+- Distortion Coefficients: [-1.64966065e-02 -5.65046533e-01 -1.51187014e-03  3.16284230e-03
+  2.04962364e+00]
 
 Calibration Results:
-- Mean Reprojection Error: 1.1602 ± 0.6874 pixels
-- Maximum Reprojection Error: 4.5725 pixels
-- Baseline Distance: 37.47 mm
-- Rotation Angle: 3.25 degrees
+- Mean Reprojection Error: 1.0273 ± 1.0927 pixels
+- Maximum Reprojection Error: 28.0415 pixels
+- Baseline Distance: 37.01 mm
+- Rotation Angle: 1.90 degrees
 
 Extrinsic Parameters (Depth → Color):
 Rotation Matrix:
-[[ 0.99998518 -0.00526811  0.00137678]
- [ 0.00518194  0.99838997  0.05648548]
- [-0.00167213 -0.05647751  0.99840247]]
+[[ 0.99998109 -0.00541158  0.00292298]
+ [ 0.00531351  0.99945514  0.03257583]
+ [-0.00309768 -0.03255968  0.99946499]]
 
 Translation Vector (meters):
-[0.0374266  0.00087347 0.00149728]
+[ 0.03635572  0.00134256 -0.00680601]
 
 Rotation Vector:
-[-0.05651185  0.00152527  0.00522784]
+[-0.03257372  0.00301088  0.00536353]
 
 Quality Assessment:
 - Mean Error < 1.0 pixel: ⚠️ Acceptable
-- Standard Deviation < 0.5: ⚠️ Moderate
+- Standard Deviation < 0.5: ❌ Inconsistent
 - Number of Pairs >= 20: ✅ Good
 
 Transformation Summary:
-- The depth camera is positioned 37.5mm from the color camera
-- The depth camera is rotated 3.3° relative to the color camera
-- Translation: X=37.4mm, Y=0.9mm, Z=1.5mm
+- The depth camera is positioned 37.0mm from the color camera
+- The depth camera is rotated 1.9° relative to the color camera
+- Translation: X=36.4mm, Y=1.3mm, Z=-6.8mm
 
 Usage Notes:
 - Use this calibration to transform 3D points from depth camera coordinates to color camera coordinates
@@ -62,10 +62,10 @@ Files Generated:
 - rgb_to_depth_calibration_summary.txt (local & config/)
 
 Error Statistics:
-- Minimum Error: 0.0283 pixels
-- 25th Percentile: 0.6234 pixels
-- Median Error: 1.0211 pixels
-- 75th Percentile: 1.6290 pixels
-- 95th Percentile: 2.4202 pixels
+- Minimum Error: 0.0052 pixels
+- 25th Percentile: 0.5033 pixels
+- Median Error: 0.8216 pixels
+- 75th Percentile: 1.2415 pixels
+- 95th Percentile: 2.5067 pixels
 
 Note: All calibration files have been saved both locally and in the ../../config directory.

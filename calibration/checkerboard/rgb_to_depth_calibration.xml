@@ -5,50 +5,47 @@
   <cols>3</cols>
   <dt>d</dt>
   <data>
-    9.9998517561962641e-01 -5.2681141791189236e-03
-    1.3767766633700203e-03 5.1819412977546046e-03 9.9838997281245834e-01
-    5.6485481957095719e-02 -1.6721319839233552e-03
-    -5.6477510218975895e-02 9.9840247135816618e-01</data></rotation_matrix>
+    0.99998108531550367 -0.0054115779371317931 0.0029229839988906626
+    0.0053135112761471398 0.99945514255836687 0.032575828639544682
+    -0.0030976780248566228 -0.032559681169585651 0.99946499266006783</data></rotation_matrix>
 <rotation_vector type_id="opencv-matrix">
   <rows>3</rows>
   <cols>1</cols>
   <dt>d</dt>
   <data>
-    -5.6511849793707998e-02 1.5252735802361121e-03
-    5.2278357191930516e-03</data></rotation_vector>
+    -0.032573720345584048 0.003010882414699882 0.005363526864816481</data></rotation_vector>
 <translation_vector type_id="opencv-matrix">
   <rows>3</rows>
   <cols>1</cols>
   <dt>d</dt>
   <data>
-    3.7426604788819831e-02 8.7347286138718416e-04 1.4972762382371165e-03</data></translation_vector>
+    0.036355724282306191 0.0013425558662704922 -0.0068060069182384114</data></translation_vector>
 <color_camera_matrix type_id="opencv-matrix">
   <rows>3</rows>
   <cols>3</cols>
   <dt>d</dt>
   <data>
-    5.4115412628555293e+02 0. 3.2276223737989949e+02 0.
-    5.4118394017332434e+02 2.4513495424049998e+02 0. 0. 1.</data></color_camera_matrix>
+    542.76105468898527 0. 323.29991923211634 0. 542.96477838386204
+    240.01483436373306 0. 0. 1.</data></color_camera_matrix>
 <color_distortion type_id="opencv-matrix">
   <rows>1</rows>
   <cols>5</cols>
   <dt>d</dt>
   <data>
-    -5.9420584992544323e-02 7.2413536988030269e-02
-    5.1214324559181973e-04 -1.8974068519407760e-05
-    7.0510529656674023e-02</data></color_distortion>
-<depth_fx>4.6132928466796875e+02</depth_fx>
-<depth_fy>4.6132928466796875e+02</depth_fy>
-<depth_cx>3.2459243774414062e+02</depth_cx>
-<depth_cy>2.4213339233398438e+02</depth_cy>
-<reprojection_error_mean>1.1601787805557251e+00</reprojection_error_mean>
-<reprojection_error_std>6.8741446733474731e-01</reprojection_error_std>
-<baseline_distance>3.7466725730862592e-02</baseline_distance>
-<rotation_angle_degrees>3.2528898052174346e+00</rotation_angle_degrees>
+    -0.016496606467043963 -0.56504653338049349 -0.0015118701360063945
+    0.0031628423027756478 2.0496236369592271</data></color_distortion>
+<depth_fx>462.18331909179688</depth_fx>
+<depth_fy>462.18331909179688</depth_fy>
+<depth_cx>326.87393188476562</depth_cx>
+<depth_cy>246.21725463867188</depth_cy>
+<reprojection_error_mean>1.0272771120071411</reprojection_error_mean>
+<reprojection_error_std>1.0927116870880127</reprojection_error_std>
+<baseline_distance>0.037011658629629587</baseline_distance>
+<rotation_angle_degrees>1.8993184406474604</rotation_angle_degrees>
 <num_calibration_points>1760</num_calibration_points>
 <calibration_pairs>20</calibration_pairs>
 <pattern_size_width>11</pattern_size_width>
 <pattern_size_height>8</pattern_size_height>
 <square_size>30.</square_size>
-<timestamp>"20250922_135813"</timestamp>
+<timestamp>"20251203_102456"</timestamp>
 </opencv_storage>

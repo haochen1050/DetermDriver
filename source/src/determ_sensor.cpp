@@ -6,17 +6,16 @@
 
 using determ::capture::DetermSensor;
 using determ::capture::SynchronizedFrameSet;
-using determ::capture::SyncMode;
 using determ::capture::TimestampedFrame;
 using determ::capture::SyncStats;
 using determ::sensor::RaspberrySensor;
 using determ::sensor::RealsenseSensor;
-// // Valid stream names
-// const std::vector<std::string> DetermSensor::kMValidStreams = {
-//     "color", "depth", "infrared1", "infrared2"
-// };
+using determ::capture::CalibrationData;
 
+// ============================================================================
 // TimestampedFrame implementation
+// ============================================================================
+
 TimestampedFrame::TimestampedFrame() 
     : frame_number(0), width(0), height(0) {}
 
@@ -29,7 +28,10 @@ TimestampedFrame::TimestampedFrame(const std::string& name, std::vector<uint8_t>
     frame_number = ++global_frame_counter;
 }
 
+// ============================================================================
 // SynchronizedFrameSet implementation
+// ============================================================================
+
 SynchronizedFrameSet::SynchronizedFrameSet() 
     : avg_timestamp_ms(0), max_time_diff_ms(0), sync_id(0), reference_timestamp_us(0) {}
 
@@ -64,7 +66,10 @@ void SynchronizedFrameSet::calculateSyncStats() {
     sync_id = ++sync_counter;
 }
 
+// ============================================================================
 // SyncStats implementation
+// ============================================================================
+
 SyncStats::SyncStats() {
     start_time = last_update = std::chrono::high_resolution_clock::now();
 }
@@ -103,7 +108,7 @@ void SyncStats::calculateFPS() {
 }
 
 void SyncStats::printStats(bool detailed) const {
-    std::cout << "\nðŸ“Š === Synchronization Statistics ===" << std::endl;
+    std::cout << "\n === Synchronization Statistics ===" << std::endl;
     std::cout << "   Captured: " << total_frames_captured << " frames" << std::endl;
     std::cout << "   Synchronized: " << total_frames_synchronized << " frames" << std::endl;
     std::cout << "   Dropped: " << total_frames_dropped << " frames" << std::endl;
@@ -126,26 +131,28 @@ void SyncStats::printStats(bool detailed) const {
     std::cout << "=============================================" << std::endl;
 }
 
+// ============================================================================
 // DetermSensor Implementation
+// ============================================================================
+
 DetermSensor::DetermSensor()
     : m_is_initialized(false),
       m_is_running(false),
       m_sync_capture_active(false),
       m_color_enabled(false),
       m_depth_enabled(false),
-      m_infrared_enabled(false),
-      m_color_width(1920),
-      m_color_height(1080),
+      m_color_width(0),
+      m_color_height(0),
       m_color_format("YUYV"),
       m_color_configured(false),
-      m_depth_width(640),
-      m_depth_height(480),
+      m_depth_width(0),
+      m_depth_height(0),
       m_depth_configured(false),
-      m_sync_mode(SyncMode::HYBRID_SYNC),
       m_sync_tolerance_ms(16.67),
       m_sync_buffer_size(30),
       m_new_frameset_available(false),
-      m_frameset_sequence(0)
+      m_frameset_sequence(0),
+      m_has_calibration(false)
 {
     // Create sensor instances
     m_raspberry_sensor = std::make_unique<RaspberrySensor>();
@@ -166,6 +173,9 @@ DetermSensor::~DetermSensor() {
     std::cout << "DetermSensor destroyed" << std::endl;
 }
 
+// ============================================================================
+// Initialization
+// ============================================================================
 
 int DetermSensor::Initialize()
 {
@@ -191,8 +201,8 @@ int DetermSensor::Initialize()
 
   // Print initialization summary
   std::cout << "Sensor initialization summary:" << std::endl;
-  std::cout << "  Color sensor (Raspberry Pi): " << (color_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
-  std::cout << "  Depth sensor (RealSense): " << (depth_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
+  std::cout << "  Color sensor (Raspberry Pi): " << (color_result == 0 ? "Success" : " Failed") << std::endl;
+  std::cout << "  Depth sensor (RealSense): " << (depth_result == 0 ? "Success" : " Failed") << std::endl;
 
   return 0;
 }
@@ -228,6 +238,10 @@ int DetermSensor::InitializeDepthSensor()
 
   return ret;
 }
+
+// ============================================================================
+// Stream Management
+// ============================================================================
 
 bool DetermSensor::IsValidStream(const std::string& stream_name) const
 {
@@ -268,17 +282,13 @@ int DetermSensor::EnableStream(const std::vector<std::string>& streams)
   // Reset stream flags
   m_color_enabled = false;
   m_depth_enabled = false;
-  m_infrared_enabled = false;
 
   // Set stream flags based on enabled streams
   for (const auto& stream : streams) {
     if (stream == "color") {
       m_color_enabled = true;
-    } else if (stream == "depth") {
+    } else if (stream == "depth" || stream == "infrared1" || stream == "infrared2") {
       m_depth_enabled = true;
-      m_infrared_enabled = false;  // Ensure we don't have conflicting streams
-    } else if (stream == "infrared1" || stream == "infrared2") {
-      m_infrared_enabled = true;
     }
   }
 
@@ -286,33 +296,14 @@ int DetermSensor::EnableStream(const std::vector<std::string>& streams)
 
   std::cout << "Stream configuration:" << std::endl;
   std::cout << "  Color stream: " << (m_color_enabled ? "enabled" : "disabled") << std::endl;
-  std::cout << "  Depth stream: " << (m_depth_enabled ? "enabled" : "disabled") << std::endl;
-  std::cout << "  Infrared streams: " << (m_infrared_enabled ? "enabled" : "disabled") << std::endl;
+  std::cout << "  Depth/IR streams: " << (m_depth_enabled ? "enabled" : "disabled") << std::endl;
 
   return 0;
 }
 
-bool DetermSensor::SetSynchronizationMode(SyncMode mode) {
-    if (m_sync_capture_active) {
-        std::cerr << "Cannot change sync mode while synchronized capture is active" << std::endl;
-        return false;
-    }
-    
-    m_sync_mode = mode;
-    std::cout << "Synchronization mode set to: ";
-    switch (mode) {
-        case SyncMode::SOFTWARE_SYNC:
-            std::cout << "SOFTWARE_SYNC" << std::endl;
-            break;
-        case SyncMode::HARDWARE_SYNC:
-            std::cout << "HARDWARE_SYNC" << std::endl;
-            break;
-        case SyncMode::HYBRID_SYNC:
-            std::cout << "HYBRID_SYNC" << std::endl;
-            break;
-    }
-    return true;
-}
+// ============================================================================
+// Synchronization Configuration
+// ============================================================================
 
 bool DetermSensor::SetSyncTolerance(double tolerance_ms) {
     if (tolerance_ms <= 0 || tolerance_ms > 1000) {
@@ -336,25 +327,10 @@ bool DetermSensor::SetSyncBufferSize(size_t buffer_size) {
     return true;
 }
 
-// bool DetermSensor::CalibrateClocks() {
-//     if (!m_is_running) {
-//         std::cerr << "Sensors must be running to calibrate clocks" << std::endl;
-//         return false;
-//     }
-    
-//     if (m_sync_mode == SyncMode::SOFTWARE_SYNC) {
-//         std::cout << "Clock calibration not needed for SOFTWARE_SYNC mode" << std::endl;
-//         return true;
-//     }
-    
-//     // With RealSense using RS2_TIMESTAMP_DOMAIN_GLOBAL_TIME, 
-//     // timestamps are already in OS system clock domain
-//     std::cout << "RealSense using GLOBAL_TIME domain - no calibration needed" << std::endl;
-//     m_clock_sync.m_is_calibrated = true;
-//     return true;
-// }
+// ============================================================================
+// ADVANCED BUFFERED SYNCHRONIZED FRAME CAPTURE 
+// ============================================================================
 
-// INTEGRATED SYNCHRONIZATION ALGORITHMS
 SynchronizedFrameSet DetermSensor::GetSynchronizedFrames(double timeout_ms) {
     SynchronizedFrameSet frameset;
     frameset.frameset_sequence = ++m_frameset_sequence;
@@ -364,189 +340,129 @@ SynchronizedFrameSet DetermSensor::GetSynchronizedFrames(double timeout_ms) {
         return frameset;
     }
     
-    bool success = false;
     auto start_time = std::chrono::steady_clock::now();
-    auto timeout = std::chrono::duration<double, std::milli>(timeout_ms);
+    auto timeout_duration = std::chrono::duration<double, std::milli>(timeout_ms);
     
-    while (!success && (std::chrono::steady_clock::now() - start_time < timeout)) {
-        switch (m_sync_mode) {
-            case SyncMode::SOFTWARE_SYNC:
-                success = CaptureFramesWithSoftwareSync(frameset);
-                break;
-            case SyncMode::HARDWARE_SYNC:
-                success = CaptureFramesWithHardwareSync(frameset);
-                break;
-            case SyncMode::HYBRID_SYNC:
-                success = CaptureFramesWithHybridSync(frameset);
-                break;
+    // Strategy: Keep capturing and buffering frames until we find a good match
+    // This handles variable frame arrival times and jitter
+    
+    while (std::chrono::steady_clock::now() - start_time < timeout_duration) {
+        
+        // 1. Capture new frames and add to buffers
+        captureAndBufferFrames();
+        
+        // 2. Try to find synchronized frames from buffers
+        if (findSynchronizedFrames(frameset)) {
+            // Success! We found a synchronized set
+            m_sync_stats.updateStats(frameset);
+            return frameset;
         }
         
-        if (!success) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        // 3. Clean up old frames periodically
+        static int cleanup_counter = 0;
+        if (++cleanup_counter % 10 == 0) {
+            cleanupOldFrames();
         }
+        
+        // Small sleep to avoid busy waiting
+        std::this_thread::sleep_for(std::chrono::microseconds(500));
     }
     
-    // Update statistics if successful
-    if (success && !frameset.frames.empty()) {
-        m_sync_stats.updateStats(frameset);
-    }
-    
+    // Timeout - return empty frameset
     return frameset;
 }
 
-bool DetermSensor::CaptureFramesWithSoftwareSync(SynchronizedFrameSet& frameset) {
-    // Capture timestamp as close to frame acquisition as possible
-    auto capture_timestamp = std::chrono::high_resolution_clock::now();
-    
-    std::vector<std::pair<std::string, std::chrono::high_resolution_clock::time_point>> timestamps;
-    
-    // Capture from color sensor (Raspberry Pi)
+// ============================================================================
+// CAPTURE AND BUFFER FRAMES (captures from both sensors and adds to queues)
+// ============================================================================
+
+void DetermSensor::captureAndBufferFrames() {
+    // 1. Capture from Raspberry Pi (color sensor)
     if (m_color_enabled && m_raspberry_sensor) {
-        auto color_frame = m_raspberry_sensor->GetFrame();
-        if (!color_frame.empty()) {
-            // Get dimensions and format for color stream
-            auto dim_it = m_stream_dimensions.find("color");
-            auto fmt_it = m_stream_formats.find("color");
-            
-            int width = (dim_it != m_stream_dimensions.end()) ? dim_it->second.first : m_color_width;
-            int height = (dim_it != m_stream_dimensions.end()) ? dim_it->second.second : m_color_height;
-            std::string format = (fmt_it != m_stream_formats.end()) ? fmt_it->second : m_color_format;
-            
-            TimestampedFrame frame("color", std::move(color_frame), width, height, format);
-            frame.software_timestamp = capture_timestamp;
-            frameset.frames["color"] = std::move(frame);
-            timestamps.emplace_back("color", capture_timestamp);
-            
-            m_sync_stats.total_frames_captured++;
-        }
-    }
-    
-    // Capture from depth/IR sensors (RealSense)
-    if ((m_depth_enabled || m_infrared_enabled) && m_realsense_sensor) {
-        auto rs_frames = m_realsense_sensor->GetFrame();
-        
-        for (const auto& [stream_name, frame_data] : rs_frames) {
-            if (std::find(m_enabled_streams.begin(), m_enabled_streams.end(), stream_name) != m_enabled_streams.end()) {
-                // Get dimensions and format
-                auto dim_it = m_stream_dimensions.find(stream_name);
-                auto fmt_it = m_stream_formats.find(stream_name);
+        try {
+            auto rpi_frame = m_raspberry_sensor->GetTimestampedFrame();
+            if (!rpi_frame.data.empty()) {
+                auto dim_it = m_stream_dimensions.find("color");
+                auto fmt_it = m_stream_formats.find("color");
                 
-                int width = (dim_it != m_stream_dimensions.end()) ? dim_it->second.first : m_depth_width;
-                int height = (dim_it != m_stream_dimensions.end()) ? dim_it->second.second : m_depth_height;
-                std::string format = (fmt_it != m_stream_formats.end()) ? fmt_it->second : 
-                                   (stream_name == "depth" ? "Z16" : "Y8");
+                int width = (dim_it != m_stream_dimensions.end()) ? dim_it->second.first : m_color_width;
+                int height = (dim_it != m_stream_dimensions.end()) ? dim_it->second.second : m_color_height;
+                std::string format = (fmt_it != m_stream_formats.end()) ? fmt_it->second : m_color_format;
                 
-                TimestampedFrame frame(stream_name, std::vector<uint8_t>(frame_data), width, height, format);
-                frame.software_timestamp = capture_timestamp;
-                frameset.frames[stream_name] = std::move(frame);
-                timestamps.emplace_back(stream_name, capture_timestamp);
+                TimestampedFrame frame("color", std::move(rpi_frame.data), width, height, format);
+                frame.software_timestamp = rpi_frame.timestamp;
                 
+                // Add to buffer
+                addFrameToBuffer(std::move(frame));
                 m_sync_stats.total_frames_captured++;
             }
+        } catch (const std::exception& e) {
+            // Continue on error - other sensor may still work
         }
     }
     
-    if (timestamps.empty()) {
-        return false;
-    }
-    
-    // Calculate synchronization statistics
-    auto min_time = std::min_element(timestamps.begin(), timestamps.end(),
-        [](const auto& a, const auto& b) { return a.second < b.second; })->second;
-    auto max_time = std::max_element(timestamps.begin(), timestamps.end(),
-        [](const auto& a, const auto& b) { return a.second < b.second; })->second;
-    
-    frameset.sync_timestamp = min_time + (max_time - min_time) / 2;
-    frameset.max_time_diff_ms = std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(
-        max_time - min_time).count();
-    
-    frameset.calculateSyncStats();
-    
-    return frameset.max_time_diff_ms <= m_sync_tolerance_ms;
-}
-
-bool DetermSensor::CaptureFramesWithHardwareSync(SynchronizedFrameSet& frameset) {
-    std::vector<std::pair<std::string, std::chrono::high_resolution_clock::time_point>> timestamps;
-    
-    // Capture from color sensor (software timestamp)
-    if (m_color_enabled && m_raspberry_sensor) {
-        auto rpi_frame = m_raspberry_sensor->GetTimestampedFrame();
-        if (!rpi_frame.data.empty()) {
-            auto dim_it = m_stream_dimensions.find("color");
-            auto fmt_it = m_stream_formats.find("color");
+    // 2. Capture from RealSense (depth sensor)
+    if (m_depth_enabled && m_realsense_sensor) {
+        try {
+            rs2::frameset rs_frameset = m_realsense_sensor->GetFrameset();
             
-            int width = (dim_it != m_stream_dimensions.end()) ? dim_it->second.first : m_color_width;
-            int height = (dim_it != m_stream_dimensions.end()) ? dim_it->second.second : m_color_height;
-            std::string format = (fmt_it != m_stream_formats.end()) ? fmt_it->second : m_color_format;
-            
-            TimestampedFrame frame("color", std::move(rpi_frame.data), width, height, format);
-            frame.software_timestamp = rpi_frame.timestamp;
-            frameset.frames["color"] = std::move(frame);
-            timestamps.emplace_back("color", rpi_frame.timestamp);
-            
-            m_sync_stats.total_frames_captured++;
-        }
-    }
-    
-    // Capture from depth/IR sensors (hardware timestamp already in GLOBAL_TIME domain)
-    if ((m_depth_enabled || m_infrared_enabled) && m_realsense_sensor) {
-        auto rs_frameset = m_realsense_sensor->GetTimestampedFrameSet();
-        
-        for (const auto& [stream_name, rs_frame] : rs_frameset.frames) {
-            if (std::find(m_enabled_streams.begin(), m_enabled_streams.end(), stream_name) != m_enabled_streams.end()) {
-                auto dim_it = m_stream_dimensions.find(stream_name);
-                auto fmt_it = m_stream_formats.find(stream_name);
-                
-                int width = (dim_it != m_stream_dimensions.end()) ? dim_it->second.first : m_depth_width;
-                int height = (dim_it != m_stream_dimensions.end()) ? dim_it->second.second : m_depth_height;
-                std::string format = (fmt_it != m_stream_formats.end()) ? fmt_it->second : 
-                                   (stream_name == "depth" ? "Z16" : "Y8");
-                
-                TimestampedFrame frame(stream_name, std::vector<uint8_t>(rs_frame.data), width, height, format);
-                frame.setHardwareTimestamp(rs_frame.timestamp_ms);
-                
-                // Since RealSense uses GLOBAL_TIME domain, convert directly to system time_point
-                auto hardware_duration_us = std::chrono::microseconds(static_cast<int64_t>(rs_frame.timestamp_ms * 1000.0));
-                frame.software_timestamp = std::chrono::high_resolution_clock::time_point(hardware_duration_us);
-                
-                frameset.frames[stream_name] = std::move(frame);
-                timestamps.emplace_back(stream_name, frame.software_timestamp);
-                
-                m_sync_stats.total_frames_captured++;
+            if (rs_frameset) {
+                for (const auto& stream_name : m_enabled_streams) {
+                    if (stream_name == "color") continue;  // Skip color, handled by Raspberry Pi
+                    
+                    rs2::frame rs_frame;
+                    
+                    if (stream_name == "depth") {
+                        rs_frame = rs_frameset.get_depth_frame();
+                    } else if (stream_name == "infrared1") {
+                        rs_frame = rs_frameset.get_infrared_frame(1);
+                    } else if (stream_name == "infrared2") {
+                        rs_frame = rs_frameset.get_infrared_frame(2);
+                    }
+                    
+                    if (rs_frame) {
+                        auto dim_it = m_stream_dimensions.find(stream_name);
+                        auto fmt_it = m_stream_formats.find(stream_name);
+                        
+                        auto video_frame = rs_frame.as<rs2::video_frame>();
+                        int width = (dim_it != m_stream_dimensions.end()) ? dim_it->second.first : video_frame.get_width();
+                        int height = (dim_it != m_stream_dimensions.end()) ? dim_it->second.second : video_frame.get_height();
+                        std::string format = (fmt_it != m_stream_formats.end()) ? fmt_it->second : 
+                                           (stream_name == "depth" ? "Z16" : "Y8");
+                        
+                        // Extract frame data
+                        const uint8_t* frame_ptr = static_cast<const uint8_t*>(rs_frame.get_data());
+                        size_t frame_size = width * height * video_frame.get_bytes_per_pixel();
+                        std::vector<uint8_t> data(frame_size);
+                        std::memcpy(data.data(), frame_ptr, frame_size);
+                        
+                        TimestampedFrame frame(stream_name, std::move(data), width, height, format);
+                        
+                        // Get hardware timestamp from RealSense (in milliseconds)
+                        double hw_timestamp_ms = rs_frame.get_timestamp();
+                        frame.setHardwareTimestamp(hw_timestamp_ms);
+                        
+                        // Convert to microseconds
+                        uint64_t timestamp_us = static_cast<uint64_t>(hw_timestamp_ms * 1000.0);
+                        auto hardware_duration_us = std::chrono::microseconds(timestamp_us);
+                        frame.software_timestamp = std::chrono::high_resolution_clock::time_point(hardware_duration_us);
+                        
+                        // Add to buffer
+                        addFrameToBuffer(std::move(frame));
+                        m_sync_stats.total_frames_captured++;
+                    }
+                }
             }
+        } catch (const std::exception& e) {
+            // Continue on error
         }
     }
-    
-    if (timestamps.empty()) {
-        return false;
-    }
-    
-    // Calculate synchronization statistics using timestamps
-    auto min_time = std::min_element(timestamps.begin(), timestamps.end(),
-        [](const auto& a, const auto& b) { return a.second < b.second; })->second;
-    auto max_time = std::max_element(timestamps.begin(), timestamps.end(),
-        [](const auto& a, const auto& b) { return a.second < b.second; })->second;
-    
-    frameset.sync_timestamp = min_time + (max_time - min_time) / 2;
-    frameset.max_time_diff_ms = std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(
-        max_time - min_time).count();
-    
-    frameset.calculateSyncStats();
-    
-    return frameset.max_time_diff_ms <= m_sync_tolerance_ms;
 }
 
-bool DetermSensor::CaptureFramesWithHybridSync(SynchronizedFrameSet& frameset) {
-    // Since RealSense uses GLOBAL_TIME domain, hardware sync should always work
-    // Fall back to software sync only if there's an error
-    if (CaptureFramesWithHardwareSync(frameset)) {
-        return true;
-    } else {
-        return CaptureFramesWithSoftwareSync(frameset);
-    }
-}
+// ============================================================================
+// BUFFERED SYNCHRONIZATION METHODS (if needed for advanced use)
+// ============================================================================
 
-// ADVANCED BUFFERED SYNCHRONIZATION METHODS
 void DetermSensor::addFrameToBuffer(TimestampedFrame&& frame) {
     std::lock_guard<std::mutex> lock(m_buffer_mutex);
     
@@ -571,67 +487,143 @@ bool DetermSensor::findSynchronizedFrames(SynchronizedFrameSet& frame_set) {
         }
     }
     
-    // Use the first enabled stream as reference
-    std::map<std::string, TimestampedFrame> candidate_frames;
+    // Advanced matching algorithm: Find the best temporal match across all streams
+
     
-    const auto& reference_stream = m_enabled_streams[0];
-    auto& reference_buffer = m_frame_buffers[reference_stream];
-    const auto& reference_frame = reference_buffer.front();
-    candidate_frames[reference_stream] = reference_frame;
+    std::map<std::string, TimestampedFrame> best_match;
+    double best_max_diff = std::numeric_limits<double>::max();
     
-    // Use the primary timestamp of reference frame
-    double reference_timestamp_ms = reference_frame.getPrimaryTimestampMs();
+    // Find stream with minimum buffer size (most constrained) to use as reference
+    std::string reference_stream;
+    size_t min_buffer_size = std::numeric_limits<size_t>::max();
     
-    bool valid_sync = true;
-    
-    // Find best matching frames for other streams
-    for (size_t i = 1; i < m_enabled_streams.size(); ++i) {
-        const auto& stream_name = m_enabled_streams[i];
-        auto& buffer = m_frame_buffers[stream_name];
-        
-        TimestampedFrame* best_match = nullptr;
-        double min_time_diff = std::numeric_limits<double>::max();
-        
-        // Search through buffer for best temporal match
-        std::queue<TimestampedFrame> temp_queue;
-        while (!buffer.empty()) {
-            TimestampedFrame current_frame = buffer.front();
-            buffer.pop();
-            
-            // Compare using primary timestamps
-            double current_timestamp_ms = current_frame.getPrimaryTimestampMs();
-            double time_diff = std::abs(current_timestamp_ms - reference_timestamp_ms);
-            
-            if (time_diff < min_time_diff && time_diff <= m_sync_tolerance_ms) {
-                if (best_match) {
-                    temp_queue.push(*best_match);
-                }
-                best_match = new TimestampedFrame(std::move(current_frame));
-                min_time_diff = time_diff;
-            } else {
-                temp_queue.push(current_frame);
-            }
-        }
-        
-        // Restore remaining frames to buffer
-        buffer = std::move(temp_queue);
-        
-        if (best_match) {
-            candidate_frames[stream_name] = *best_match;
-            delete best_match;
-        } else {
-            valid_sync = false;
-            break;
+    for (const auto& stream : m_enabled_streams) {
+        if (m_frame_buffers[stream].size() < min_buffer_size) {
+            min_buffer_size = m_frame_buffers[stream].size();
+            reference_stream = stream;
         }
     }
     
-    if (valid_sync) {
-        // Remove used reference frame
-        if (!m_frame_buffers[reference_stream].empty()) {
-            m_frame_buffers[reference_stream].pop();
+    if (reference_stream.empty() || m_frame_buffers[reference_stream].empty()) {
+        return false;
+    }
+    
+    // Try to match frames using each frame in the reference buffer
+    auto& ref_buffer = m_frame_buffers[reference_stream];
+    std::queue<TimestampedFrame> temp_ref_buffer;
+    
+    // Limit search depth to avoid excessive computation
+    int search_depth = std::min(static_cast<int>(ref_buffer.size()), 10);
+    
+    for (int ref_idx = 0; ref_idx < search_depth && !ref_buffer.empty(); ++ref_idx) {
+        TimestampedFrame ref_frame = ref_buffer.front();
+        ref_buffer.pop();
+        temp_ref_buffer.push(ref_frame);
+        
+        double ref_timestamp_ms = ref_frame.getPrimaryTimestampMs();
+        
+        // Try to find matching frames in other streams
+        std::map<std::string, TimestampedFrame> candidate_match;
+        candidate_match[reference_stream] = ref_frame;
+        
+        bool valid_match = true;
+        double max_diff = 0.0;
+        
+        for (const auto& stream : m_enabled_streams) {
+            if (stream == reference_stream) continue;
+            
+            // Search this stream's buffer for best temporal match
+            TimestampedFrame* best_stream_match = nullptr;
+            double min_time_diff = std::numeric_limits<double>::max();
+            
+            auto& stream_buffer = m_frame_buffers[stream];
+            std::queue<TimestampedFrame> temp_stream_buffer;
+            
+            while (!stream_buffer.empty()) {
+                TimestampedFrame current_frame = stream_buffer.front();
+                stream_buffer.pop();
+                
+                double current_timestamp_ms = current_frame.getPrimaryTimestampMs();
+                double time_diff = std::abs(current_timestamp_ms - ref_timestamp_ms);
+                
+                if (time_diff < min_time_diff) {
+                    if (best_stream_match) {
+                        temp_stream_buffer.push(*best_stream_match);
+                        delete best_stream_match;
+                    }
+                    best_stream_match = new TimestampedFrame(std::move(current_frame));
+                    min_time_diff = time_diff;
+                } else {
+                    temp_stream_buffer.push(current_frame);
+                }
+            }
+            
+            // Restore buffer
+            stream_buffer = std::move(temp_stream_buffer);
+            
+            if (best_stream_match) {
+                if (min_time_diff <= m_sync_tolerance_ms) {
+                    candidate_match[stream] = *best_stream_match;
+                    max_diff = std::max(max_diff, min_time_diff);
+                    delete best_stream_match;
+                } else {
+                    // No match within tolerance for this stream
+                    valid_match = false;
+                    delete best_stream_match;
+                    break;
+                }
+            } else {
+                // No frame found in buffer
+                valid_match = false;
+                break;
+            }
         }
         
-        frame_set.frames = std::move(candidate_frames);
+        // Check if this is a better match than previous best
+        if (valid_match && candidate_match.size() == m_enabled_streams.size()) {
+            if (max_diff < best_max_diff) {
+                best_max_diff = max_diff;
+                best_match = std::move(candidate_match);
+                
+                // If we found an excellent match (< 2ms), use it immediately
+                if (best_max_diff < 2.0) {
+                    break;
+                }
+            }
+        }
+    }
+    
+    // Restore reference buffer
+    while (!temp_ref_buffer.empty()) {
+        ref_buffer.push(temp_ref_buffer.front());
+        temp_ref_buffer.pop();
+    }
+    
+    // If we found a valid match, use it
+    if (!best_match.empty() && best_match.size() == m_enabled_streams.size()) {
+        // Remove the matched frames from buffers
+        for (const auto& [stream_name, matched_frame] : best_match) {
+            auto& buffer = m_frame_buffers[stream_name];
+            std::queue<TimestampedFrame> temp_buffer;
+            
+            bool removed = false;
+            while (!buffer.empty()) {
+                TimestampedFrame current = buffer.front();
+                buffer.pop();
+                
+                // Match by frame number (unique identifier)
+                if (!removed && current.frame_number == matched_frame.frame_number) {
+                    removed = true;
+                    // Don't add to temp buffer - this is the one we're using
+                } else {
+                    temp_buffer.push(std::move(current));
+                }
+            }
+            
+            buffer = std::move(temp_buffer);
+        }
+        
+        frame_set.frames = std::move(best_match);
         frame_set.calculateSyncStats();
         return true;
     }
@@ -642,32 +634,56 @@ bool DetermSensor::findSynchronizedFrames(SynchronizedFrameSet& frame_set) {
 void DetermSensor::cleanupOldFrames() {
     std::lock_guard<std::mutex> lock(m_buffer_mutex);
     
-    auto now = std::chrono::high_resolution_clock::now();
-    double max_age_ms = m_sync_tolerance_ms * 3;
+    if (m_frame_buffers.empty()) return;
+    
+    // Calculate reference timestamp (most recent frame across all buffers)
+    uint64_t newest_timestamp_us = 0;
+    
+    for (const auto& [stream_name, buffer] : m_frame_buffers) {
+        if (!buffer.empty()) {
+            // Peek at frames to find newest timestamp
+            std::queue<TimestampedFrame> temp = buffer;
+            while (!temp.empty()) {
+                uint64_t ts = temp.front().getTimestampUs();
+                newest_timestamp_us = std::max(newest_timestamp_us, ts);
+                temp.pop();
+            }
+        }
+    }
+    
+    if (newest_timestamp_us == 0) return;
+    
+    // Remove frames older than 3x tolerance window
+    double max_age_us = m_sync_tolerance_ms * 1000.0 * 3.0;
     
     for (auto& [stream_name, buffer] : m_frame_buffers) {
         std::queue<TimestampedFrame> cleaned_buffer;
+        int dropped = 0;
         
         while (!buffer.empty()) {
-            const auto& frame = buffer.front();
-            double age_ms = std::chrono::duration<double, std::milli>(
-                now - frame.software_timestamp).count();
+            TimestampedFrame frame = buffer.front();
+            buffer.pop();
             
-            if (age_ms < max_age_ms) {
-                cleaned_buffer.push(frame);
+            uint64_t frame_ts = frame.getTimestampUs();
+            double age_us = static_cast<double>(newest_timestamp_us - frame_ts);
+            
+            if (age_us < max_age_us) {
+                cleaned_buffer.push(std::move(frame));
             } else {
+                dropped++;
                 m_sync_stats.total_frames_dropped++;
             }
-            
-            buffer.pop();
         }
         
         buffer = std::move(cleaned_buffer);
     }
 }
 
+// ============================================================================
 // CONTINUOUS SYNCHRONIZED CAPTURE
-bool DetermSensor::StartSynchronizedCapture(SyncMode mode) {
+// ============================================================================
+
+bool DetermSensor::StartSynchronizedCapture() {
     if (m_sync_capture_active) {
         std::cout << "Synchronized capture already active" << std::endl;
         return true;
@@ -677,8 +693,6 @@ bool DetermSensor::StartSynchronizedCapture(SyncMode mode) {
         std::cerr << "Sensors must be running to start synchronized capture" << std::endl;
         return false;
     }
-    
-    SetSynchronizationMode(mode);
     
     // Initialize frame buffers
     for (const auto& stream : m_enabled_streams) {
@@ -691,13 +705,10 @@ bool DetermSensor::StartSynchronizedCapture(SyncMode mode) {
     m_sync_capture_active = true;
     m_sync_capture_thread = std::thread(&DetermSensor::SynchronizedCaptureThread, this);
     
-    std::cout << "Synchronized capture started with mode: ";
-    switch (m_sync_mode) {
-        case SyncMode::SOFTWARE_SYNC: std::cout << "SOFTWARE_SYNC"; break;
-        case SyncMode::HARDWARE_SYNC: std::cout << "HARDWARE_SYNC"; break;
-        case SyncMode::HYBRID_SYNC: std::cout << "HYBRID_SYNC"; break;
-    }
-    std::cout << " (RealSense GLOBAL_TIME domain)" << std::endl;
+    std::cout << "Synchronized capture started using native timestamps" << std::endl;
+    std::cout << "  RealSense: Hardware timestamps (GLOBAL_TIME domain)" << std::endl;
+    std::cout << "  Raspberry Pi: Software timestamps (high_resolution_clock)" << std::endl;
+    std::cout << "  Sync tolerance: " << m_sync_tolerance_ms << " ms" << std::endl;
     
     return true;
 }
@@ -733,7 +744,7 @@ void DetermSensor::SynchronizedCaptureThread() {
     
     while (m_sync_capture_active) {
         try {
-            // Get synchronized frames using the selected algorithm
+            // Get synchronized frames using native timestamps
             auto frameset = GetSynchronizedFrames(50.0);
             
             if (!frameset.frames.empty()) {
@@ -789,6 +800,9 @@ void DetermSensor::resetSyncStats() {
     std::cout << "Synchronization statistics reset" << std::endl;
 }
 
+// ============================================================================
+// Sensor Configuration
+// ============================================================================
 
 int DetermSensor::SetColorSensorConfig(int width, int height, const std::string& format)
 {
@@ -815,6 +829,11 @@ int DetermSensor::SetColorSensorConfig(int width, int height, const std::string&
     m_color_height = height;
     m_color_format = format;
     m_color_configured = true;
+    
+    // Store dimensions and format for synchronization
+    m_stream_dimensions["color"] = {width, height};
+    m_stream_formats["color"] = format;
+    
     std::cout << "Color sensor configured successfully" << std::endl;
   } else {
     std::cerr << "Failed to configure color sensor: " << ret << std::endl;
@@ -830,8 +849,8 @@ int DetermSensor::SetDepthSensorConfig(int width, int height)
     return -1;
   }
 
-  if (!m_depth_enabled && !m_infrared_enabled) {
-    std::cerr << "Depth or infrared streams not enabled. Call EnableStream() first." << std::endl;
+  if (!m_depth_enabled) {
+    std::cerr << "Depth streams not enabled. Call EnableStream() first." << std::endl;
     return -1;
   }
 
@@ -860,6 +879,17 @@ int DetermSensor::SetDepthSensorConfig(int width, int height)
     m_depth_width = width;
     m_depth_height = height;
     m_depth_configured = true;
+    
+    // Store dimensions and formats for synchronization
+    for (const auto& stream : realsense_streams) {
+      m_stream_dimensions[stream] = {width, height};
+      if (stream == "depth") {
+        m_stream_formats[stream] = "Z16";
+      } else if (stream == "infrared1" || stream == "infrared2") {
+        m_stream_formats[stream] = "Y8";
+      }
+    }
+    
     std::cout << "Depth sensor configured successfully" << std::endl;
   } else {
     std::cerr << "Failed to configure depth sensor: " << ret << std::endl;
@@ -867,6 +897,10 @@ int DetermSensor::SetDepthSensorConfig(int width, int height)
 
   return ret;
 }
+
+// ============================================================================
+// Sensor Controls
+// ============================================================================
 
 bool DetermSensor::SetColorSensorControl(bool is_auto, float exposure_time, float white_balance)
 {
@@ -921,17 +955,6 @@ bool DetermSensor::SetDepthSensorControl(bool auto_exposure, float manual_exposu
   return m_realsense_sensor->SetDepthControl(auto_exposure, manual_exposure, gain);
 }
 
-bool DetermSensor::SetInfraredSensorControl(bool auto_exposure, float manual_exposure, float gain)
-{
-  if (!m_infrared_enabled || !m_realsense_sensor) {
-    std::cerr << "Infrared sensor not available or not enabled" << std::endl;
-    return false;
-  }
-
-  std::cout << "Setting infrared sensor controls - Auto exposure: " << (auto_exposure ? "true" : "false") << std::endl;
-  return m_realsense_sensor->SetInfraredControl(auto_exposure, manual_exposure, gain);
-}
-
 bool DetermSensor::SetLaserPower(float power)
 {
   if (!m_realsense_sensor) {
@@ -951,6 +974,10 @@ bool DetermSensor::SetDepthUnits(float units)
 
   return m_realsense_sensor->SetDepthUnits(units);
 }
+
+// ============================================================================
+// Start/Stop
+// ============================================================================
 
 int DetermSensor::Start()
 {
@@ -980,13 +1007,13 @@ int DetermSensor::Start()
   }
 
   // Start depth sensor if enabled
-  if (m_depth_enabled || m_infrared_enabled) {
+  if (m_depth_enabled) {
     depth_result = StartDepthSensor();
   }
 
   // Check if at least one sensor started successfully
   bool color_success = !m_color_enabled || (color_result == 0);
-  bool depth_success = !(m_depth_enabled || m_infrared_enabled) || (depth_result == 0);
+  bool depth_success = !m_depth_enabled || (depth_result == 0);
 
   if (!color_success && !depth_success) {
     std::cerr << "Failed to start any enabled sensors" << std::endl;
@@ -999,10 +1026,10 @@ int DetermSensor::Start()
   // Print start summary
   std::cout << "Sensor start summary:" << std::endl;
   if (m_color_enabled) {
-    std::cout << "  Color sensor: " << (color_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
+    std::cout << "  Color sensor: " << (color_result == 0 ? "Success" : " Failed") << std::endl;
   }
-  if (m_depth_enabled || m_infrared_enabled) {
-    std::cout << "  Depth/IR sensor: " << (depth_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
+  if (m_depth_enabled) {
+    std::cout << "  Depth sensor: " << (depth_result == 0 ? "Success" : " Failed") << std::endl;
   }
 
   return 0;
@@ -1059,7 +1086,7 @@ int DetermSensor::Stop()
   }
 
   // Stop depth sensor if enabled
-  if (m_depth_enabled || m_infrared_enabled) {
+  if (m_depth_enabled) {
     depth_result = StopDepthSensor();
   }
 
@@ -1069,10 +1096,10 @@ int DetermSensor::Stop()
   // Print stop summary
   std::cout << "Sensor stop summary:" << std::endl;
   if (m_color_enabled) {
-    std::cout << "  Color sensor: " << (color_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
+    std::cout << "  Color sensor: " << (color_result == 0 ? "Success" : " Failed") << std::endl;
   }
-  if (m_depth_enabled || m_infrared_enabled) {
-    std::cout << "  Depth/IR sensor: " << (depth_result == 0 ? "âœ“ Success" : "âœ— Failed") << std::endl;
+  if (m_depth_enabled) {
+    std::cout << "  Depth sensor: " << (depth_result == 0 ? "Success" : " Failed") << std::endl;
   }
 
   return (color_result == 0 && depth_result == 0) ? 0 : -1;
@@ -1110,7 +1137,9 @@ int DetermSensor::StopDepthSensor()
   return ret;
 }
 
-
+// ============================================================================
+// Legacy Frame Capture (non-synchronized)
+// ============================================================================
 
 std::map<std::string, std::vector<uint8_t>> DetermSensor::GetFrame() {
     std::map<std::string, std::vector<uint8_t>> combined_frames;
@@ -1129,8 +1158,8 @@ std::map<std::string, std::vector<uint8_t>> DetermSensor::GetFrame() {
             }
         }
         
-        // Get frames from RealsenseSensor (depth, infrared streams)
-        if (m_realsense_sensor && (IsDepthSensorEnabled() || IsInfraredSensorEnabled())) {
+        // Get frames from RealsenseSensor (depth streams)
+        if (m_realsense_sensor && IsDepthSensorEnabled()) {
             auto depth_frames = m_realsense_sensor->GetFrame();
             
             for (const auto& [stream_name, frame_data] : depth_frames) {
@@ -1147,18 +1176,9 @@ std::map<std::string, std::vector<uint8_t>> DetermSensor::GetFrame() {
     return combined_frames;
 }
 
-// std::map<std::string, double> DetermSensor::getLastHardwareTimestamps() const {
-//     std::map<std::string, double> timestamps;
-    
-//     // Get hardware timestamps from RealSense if available
-//     if (m_realsense_sensor && (IsDepthSensorEnabled() || IsInfraredSensorEnabled()) && IsRunning()) {
-//         auto realsense_timestamps = m_realsense_sensor->getLastHardwareTimestamps();
-//         timestamps.insert(realsense_timestamps.begin(), realsense_timestamps.end());
-//     }
-    
-//     // RaspberrySensor (color stream) doesn't provide hardware timestamps
-//     return timestamps;
-// }
+// ============================================================================
+// Information and Diagnostics
+// ============================================================================
 
 void DetermSensor::PrintSupportedFormats()
 {
@@ -1222,4 +1242,252 @@ std::string DetermSensor::GetDepthSensorInfo() const
 
   return m_realsense_sensor->GetDeviceInfo() + " - Resolution: " + std::to_string(m_depth_width) + "x" +
          std::to_string(m_depth_height);
+}
+
+// ============================================================================
+// CALIBRATION METHODS
+// ============================================================================
+
+void CalibrationData::print() const {
+    std::cout << "\n========== CALIBRATION DATA ==========" << std::endl;
+    
+    std::cout << "Color Camera Intrinsics:" << std::endl;
+    std::cout << "  Resolution: " << color_intrinsics.width << "x" << color_intrinsics.height << std::endl;
+    std::cout << "  Focal length (fx, fy): " << color_intrinsics.fx << ", " << color_intrinsics.fy << std::endl;
+    std::cout << "  Principal point (ppx, ppy): " << color_intrinsics.ppx << ", " << color_intrinsics.ppy << std::endl;
+    std::cout << "  Distortion coeffs: [" 
+              << color_intrinsics.coeffs[0] << ", " << color_intrinsics.coeffs[1] << ", "
+              << color_intrinsics.coeffs[2] << ", " << color_intrinsics.coeffs[3] << ", " 
+              << color_intrinsics.coeffs[4] << "]" << std::endl;
+    
+    std::cout << "\nDepth Camera Intrinsics:" << std::endl;
+    std::cout << "  Resolution: " << depth_intrinsics.width << "x" << depth_intrinsics.height << std::endl;
+    std::cout << "  Focal length (fx, fy): " << depth_intrinsics.fx << ", " << depth_intrinsics.fy << std::endl;
+    std::cout << "  Principal point (ppx, ppy): " << depth_intrinsics.ppx << ", " << depth_intrinsics.ppy << std::endl;
+    std::cout << "  Distortion coeffs: [" 
+              << depth_intrinsics.coeffs[0] << ", " << depth_intrinsics.coeffs[1] << ", "
+              << depth_intrinsics.coeffs[2] << ", " << depth_intrinsics.coeffs[3] << ", " 
+              << depth_intrinsics.coeffs[4] << "]" << std::endl;
+    
+    std::cout << "\nDepth-to-Color Extrinsics:" << std::endl;
+    std::cout << "  Rotation matrix:" << std::endl;
+    std::cout << "    [" << depth_to_color.rotation[0] << ", " << depth_to_color.rotation[1] << ", " << depth_to_color.rotation[2] << "]" << std::endl;
+    std::cout << "    [" << depth_to_color.rotation[3] << ", " << depth_to_color.rotation[4] << ", " << depth_to_color.rotation[5] << "]" << std::endl;
+    std::cout << "    [" << depth_to_color.rotation[6] << ", " << depth_to_color.rotation[7] << ", " << depth_to_color.rotation[8] << "]" << std::endl;
+    std::cout << "  Translation (meters): [" 
+              << depth_to_color.translation[0] << ", " 
+              << depth_to_color.translation[1] << ", " 
+              << depth_to_color.translation[2] << "]" << std::endl;
+    
+    std::cout << "======================================\n" << std::endl;
+}
+
+bool DetermSensor::LoadCalibration(const std::string& filepath) {
+    std::ifstream file(filepath);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open calibration file: " << filepath << std::endl;
+        return false;
+    }
+    
+    try {
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+        std::string json = buffer.str();
+        file.close();
+        
+        // Parse color intrinsics
+        size_t pos = json.find("\"color_intrinsic\"");
+        if (pos != std::string::npos) {
+            m_calibration.color_intrinsics.width = parseJsonInt(json, "width", pos);
+            m_calibration.color_intrinsics.height = parseJsonInt(json, "height", pos);
+            m_calibration.color_intrinsics.fx = parseJsonFloat(json, "fx", pos);
+            m_calibration.color_intrinsics.fy = parseJsonFloat(json, "fy", pos);
+            m_calibration.color_intrinsics.ppx = parseJsonFloat(json, "cx", pos);
+            m_calibration.color_intrinsics.ppy = parseJsonFloat(json, "cy", pos);
+            
+            size_t dist_pos = json.find("\"distortion\"", pos);
+            if (dist_pos != std::string::npos) {
+                m_calibration.color_intrinsics.coeffs[0] = parseJsonFloat(json, "k1", dist_pos);
+                m_calibration.color_intrinsics.coeffs[1] = parseJsonFloat(json, "k2", dist_pos);
+                m_calibration.color_intrinsics.coeffs[2] = parseJsonFloat(json, "p1", dist_pos);
+                m_calibration.color_intrinsics.coeffs[3] = parseJsonFloat(json, "p2", dist_pos);
+                m_calibration.color_intrinsics.coeffs[4] = parseJsonFloat(json, "k3", dist_pos);
+            }
+            m_calibration.color_intrinsics.model = RS2_DISTORTION_BROWN_CONRADY;
+        }
+        
+        // Parse depth intrinsics
+        pos = json.find("\"depth_intrinsic\"");
+        if (pos != std::string::npos) {
+            m_calibration.depth_intrinsics.width = parseJsonInt(json, "width", pos);
+            m_calibration.depth_intrinsics.height = parseJsonInt(json, "height", pos);
+            m_calibration.depth_intrinsics.fx = parseJsonFloat(json, "fx", pos);
+            m_calibration.depth_intrinsics.fy = parseJsonFloat(json, "fy", pos);
+            m_calibration.depth_intrinsics.ppx = parseJsonFloat(json, "cx", pos);
+            m_calibration.depth_intrinsics.ppy = parseJsonFloat(json, "cy", pos);
+            
+            size_t dist_pos = json.find("\"distortion\"", pos);
+            if (dist_pos != std::string::npos) {
+                m_calibration.depth_intrinsics.coeffs[0] = parseJsonFloat(json, "k1", dist_pos);
+                m_calibration.depth_intrinsics.coeffs[1] = parseJsonFloat(json, "k2", dist_pos);
+                m_calibration.depth_intrinsics.coeffs[2] = parseJsonFloat(json, "p1", dist_pos);
+                m_calibration.depth_intrinsics.coeffs[3] = parseJsonFloat(json, "p2", dist_pos);
+                m_calibration.depth_intrinsics.coeffs[4] = parseJsonFloat(json, "k3", dist_pos);
+            }
+            m_calibration.depth_intrinsics.model = RS2_DISTORTION_BROWN_CONRADY;
+        }
+        
+        // Parse extrinsics
+        pos = json.find("\"depth_to_color_extrinsic\"");
+        if (pos != std::string::npos) {
+            size_t arr_start = json.find("[", pos);
+            size_t arr_end = json.find("]", arr_start);
+            std::string extr_str = json.substr(arr_start + 1, arr_end - arr_start - 1);
+            
+            std::istringstream iss(extr_str);
+            std::string val;
+            std::vector<float> extr_values;
+            
+            // Parse all values from the array
+            while (std::getline(iss, val, ',') && extr_values.size() < 16) {
+                extr_values.push_back(std::stof(val));
+            }
+            
+            if (extr_values.size() == 16) {
+                // Extract 3x3 rotation matrix from 4x4 transformation matrix
+                // Row 0: [0, 1, 2, skip 3]
+                m_calibration.depth_to_color.rotation[0] = extr_values[0];
+                m_calibration.depth_to_color.rotation[1] = extr_values[1];
+                m_calibration.depth_to_color.rotation[2] = extr_values[2];
+                
+                // Row 1: [4, 5, 6, skip 7]
+                m_calibration.depth_to_color.rotation[3] = extr_values[4];
+                m_calibration.depth_to_color.rotation[4] = extr_values[5];
+                m_calibration.depth_to_color.rotation[5] = extr_values[6];
+                
+                // Row 2: [8, 9, 10, skip 11]
+                m_calibration.depth_to_color.rotation[6] = extr_values[8];
+                m_calibration.depth_to_color.rotation[7] = extr_values[9];
+                m_calibration.depth_to_color.rotation[8] = extr_values[10];
+                
+                // Extract translation from column 3 (indices 3, 7, 11)
+                m_calibration.depth_to_color.translation[0] = extr_values[3];
+                m_calibration.depth_to_color.translation[1] = extr_values[7];
+                m_calibration.depth_to_color.translation[2] = extr_values[11];
+                
+                // Note: indices 12, 13, 14 are 0s and index 15 is 1 (homogeneous coordinates)
+            } else {
+                std::cerr << "Warning: depth_to_color_extrinsic has " << extr_values.size() 
+                          << " elements, expected 16" << std::endl;
+            }
+        }
+        
+        m_has_calibration = true;
+        std::cout << "Calibration loaded from: " << filepath << std::endl;
+        m_calibration.print();
+        
+        return true;
+        
+    } catch (const std::exception& e) {
+        std::cerr << "Error loading calibration: " << e.what() << std::endl;
+        m_has_calibration = false;
+        return false;
+    }
+}
+
+bool DetermSensor::SaveCalibration(const std::string& filepath) const {
+    if (!m_has_calibration) {
+        std::cerr << "No calibration to save" << std::endl;
+        return false;
+    }
+    
+    std::ofstream file(filepath);
+    if (!file.is_open()) {
+        std::cerr << "Failed to create file: " << filepath << std::endl;
+        return false;
+    }
+    
+    file << "{\n";
+    file << "    \"color_intrinsic\": {\n";
+    file << "        \"width\": " << m_calibration.color_intrinsics.width << ",\n";
+    file << "        \"height\": " << m_calibration.color_intrinsics.height << ",\n";
+    file << "        \"fx\": " << m_calibration.color_intrinsics.fx << ",\n";
+    file << "        \"fy\": " << m_calibration.color_intrinsics.fy << ",\n";
+    file << "        \"cx\": " << m_calibration.color_intrinsics.ppx << ",\n";
+    file << "        \"cy\": " << m_calibration.color_intrinsics.ppy << ",\n";
+    file << "        \"distortion\": {\n";
+    file << "            \"model\": \"brown_conrady\",\n";
+    file << "            \"k1\": " << m_calibration.color_intrinsics.coeffs[0] << ",\n";
+    file << "            \"k2\": " << m_calibration.color_intrinsics.coeffs[1] << ",\n";
+    file << "            \"k3\": " << m_calibration.color_intrinsics.coeffs[4] << ",\n";
+    file << "            \"p1\": " << m_calibration.color_intrinsics.coeffs[2] << ",\n";
+    file << "            \"p2\": " << m_calibration.color_intrinsics.coeffs[3] << "\n";
+    file << "        }\n";
+    file << "    },\n\n";
+    
+    file << "    \"depth_intrinsic\": {\n";
+    file << "        \"width\": " << m_calibration.depth_intrinsics.width << ",\n";
+    file << "        \"height\": " << m_calibration.depth_intrinsics.height << ",\n";
+    file << "        \"fx\": " << m_calibration.depth_intrinsics.fx << ",\n";
+    file << "        \"fy\": " << m_calibration.depth_intrinsics.fy << ",\n";
+    file << "        \"cx\": " << m_calibration.depth_intrinsics.ppx << ",\n";
+    file << "        \"cy\": " << m_calibration.depth_intrinsics.ppy << ",\n";
+    file << "        \"distortion\": {\n";
+    file << "            \"model\": \"brown_conrady\",\n";
+    file << "            \"k1\": " << m_calibration.depth_intrinsics.coeffs[0] << ",\n";
+    file << "            \"k2\": " << m_calibration.depth_intrinsics.coeffs[1] << ",\n";
+    file << "            \"k3\": " << m_calibration.depth_intrinsics.coeffs[4] << ",\n";
+    file << "            \"p1\": " << m_calibration.depth_intrinsics.coeffs[2] << ",\n";
+    file << "            \"p2\": " << m_calibration.depth_intrinsics.coeffs[3] << "\n";
+    file << "        }\n";
+    file << "    },\n\n";
+    
+    file << "    \"depth_to_color_extrinsic\": [\n";
+    // Build 4x4 transformation matrix from rotation and translation
+    file << "        " << m_calibration.depth_to_color.rotation[0] << ",\n";
+    file << "        " << m_calibration.depth_to_color.rotation[1] << ",\n";
+    file << "        " << m_calibration.depth_to_color.rotation[2] << ",\n";
+    file << "        " << m_calibration.depth_to_color.translation[0] << ",\n";
+
+    file << "        " << m_calibration.depth_to_color.rotation[3] << ",\n";
+    file << "        " << m_calibration.depth_to_color.rotation[4] << ",\n";
+    file << "        " << m_calibration.depth_to_color.rotation[5] << ",\n";
+    file << "        " << m_calibration.depth_to_color.translation[1] << ",\n";
+
+    file << "        " << m_calibration.depth_to_color.rotation[6] << ",\n";
+    file << "        " << m_calibration.depth_to_color.rotation[7] << ",\n";
+    file << "        " << m_calibration.depth_to_color.rotation[8] << ",\n";
+    file << "        " << m_calibration.depth_to_color.translation[2] << ",\n";
+
+    file << "        0,\n";
+    file << "        0,\n";
+    file << "        0,\n";
+    file << "        1\n";
+    file << "    ]\n";
+    file << "}\n";
+    
+    file.close();
+    std::cout << "Calibration saved to: " << filepath << std::endl;
+    return true;
+}
+
+int DetermSensor::parseJsonInt(const std::string& json, const std::string& key, size_t start_pos) {
+    size_t pos = json.find("\"" + key + "\"", start_pos);
+    if (pos == std::string::npos) return 0;
+    
+    size_t colon = json.find(":", pos);
+    size_t comma = json.find(",", colon);
+    return std::stoi(json.substr(colon + 1, comma - colon - 1));
+}
+
+float DetermSensor::parseJsonFloat(const std::string& json, const std::string& key, size_t start_pos) {
+    size_t pos = json.find("\"" + key + "\"", start_pos);
+    if (pos == std::string::npos) return 0.0f;
+    
+    size_t colon = json.find(":", pos);
+    size_t comma = json.find(",", colon);
+    if (comma == std::string::npos) {
+        comma = json.find("}", colon);
+    }
+    return std::stof(json.substr(colon + 1, comma - colon - 1));
 }

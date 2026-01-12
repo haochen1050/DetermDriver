@@ -1,8 +1,6 @@
 #include "sensor/realsense_d421_sensor.h"
 
 using determ::sensor::RealsenseSensor;
-using determ::sensor::RealsenseFrameSet;
-// using determ::sensor::RealsenseTimestampedFrame;
 
 RealsenseSensor::RealsenseSensor()
     : m_is_initialized(false), m_is_running(false), m_is_configured(false), m_width(640), m_height(480), m_fps(30)
@@ -269,9 +267,6 @@ std::map<std::string, std::vector<uint8_t>> RealsenseSensor::GetFrame() {
     try {
         rs2::frameset frames = m_pipeline.wait_for_frames(5000);
 
-        // Clear previous timestamps and capture new ones
-        // m_last_hardware_timestamps.clear();
-
         for (const auto& stream_name : m_enabled_streams) {
             rs2::frame frame;
 
@@ -284,7 +279,6 @@ std::map<std::string, std::vector<uint8_t>> RealsenseSensor::GetFrame() {
             }
 
             if (frame) {
-
                 auto video_frame = frame.as<rs2::video_frame>();
                 int width = video_frame.get_width();
                 int height = video_frame.get_height();
@@ -308,71 +302,23 @@ std::map<std::string, std::vector<uint8_t>> RealsenseSensor::GetFrame() {
     }
 }
 
-RealsenseFrameSet RealsenseSensor::GetTimestampedFrameSet()
+rs2::frameset RealsenseSensor::GetFrameset()
 {
-    RealsenseFrameSet frameset;
-    
     if (!m_is_running) {
         std::cerr << "Sensor is not running. Call Start() first." << std::endl;
-        return frameset;
+        return rs2::frameset();
     }
 
     try {
-        rs2::frameset frames = m_pipeline.wait_for_frames(5000);
-        frameset.frameset_sequence = ++m_frameset_sequence;
-
-        // m_last_hardware_timestamps.clear();
-
-        for (const auto& stream_name : m_enabled_streams) {
-            rs2::frame frame;
-
-            if (stream_name == "depth") {
-                frame = frames.get_depth_frame();
-            } else if (stream_name == "infrared1") {
-                frame = frames.get_infrared_frame(1);
-            } else if (stream_name == "infrared2") {
-                frame = frames.get_infrared_frame(2);
-            }
-
-            if (frame) {
-                RealsenseTimestampedFrame timestamped_frame;
-                
-                // Get hardware timestamp (should be in global time domain)
-                timestamped_frame.timestamp_ms = frame.get_timestamp();
-                timestamped_frame.sequence_number = ++m_frame_sequence;
-                timestamped_frame.stream_name = stream_name;
-
-                // Store for backward compatibility
-                // m_last_hardware_timestamps[stream_name] = timestamped_frame.timestamp_ms;
-
-                // Extract frame data
-                auto video_frame = frame.as<rs2::video_frame>();
-                int width = video_frame.get_width();
-                int height = video_frame.get_height();
-                int bytes_per_pixel = video_frame.get_bytes_per_pixel();
-
-                const uint8_t* frame_ptr = static_cast<const uint8_t*>(frame.get_data());
-                size_t frame_size = width * height * bytes_per_pixel;
-
-                timestamped_frame.data.resize(frame_size);
-                std::memcpy(timestamped_frame.data.data(), frame_ptr, frame_size);
-
-                frameset.frames[stream_name] = std::move(timestamped_frame);
-            }
-        }
-
-        return frameset;
+        // Return the native RealSense frameset with all metadata intact
+        // Including timestamps, frame numbers, and all native SDK functionality
+        return m_pipeline.wait_for_frames(5000);
 
     } catch (const rs2::error& e) {
         std::cerr << "RealSense error during frame capture: " << e.what() << std::endl;
-        return frameset;
+        return rs2::frameset();
     }
 }
-
-// // Add method to get last hardware timestamps
-// std::map<std::string, double> RealsenseSensor::getLastHardwareTimestamps() const {
-//     return m_last_hardware_timestamps;
-// }
 
 void RealsenseSensor::PrintSupportedFormats()
 {
@@ -465,14 +411,14 @@ void RealsenseSensor::PrintAvailableControls()
             rs2::option_range range = sensor.get_option_range(option);
             float current_value = sensor.get_option(option);
 
-            std::cout << "✓ " << rs2_option_to_string(option) << " (current: " << current_value
+            std::cout << "âœ“ " << rs2_option_to_string(option) << " (current: " << current_value
                       << ", range: " << range.min << "-" << range.max << ", step: " << range.step << ")" << std::endl;
           } catch (const rs2::error& e) {
-            std::cout << "✓ " << rs2_option_to_string(option) << " (supported but error reading: " << e.what() << ")"
+            std::cout << "âœ“ " << rs2_option_to_string(option) << " (supported but error reading: " << e.what() << ")"
                       << std::endl;
           }
         } else {
-          std::cout << "✗ " << rs2_option_to_string(option) << " (not supported)" << std::endl;
+          std::cout << "âœ— " << rs2_option_to_string(option) << " (not supported)" << std::endl;
         }
       }
     }
@@ -507,7 +453,7 @@ bool RealsenseSensor::SetDepthControl(bool auto_exposure, float manual_exposure,
             rs2::option_range exp_range = sensor.get_option_range(RS2_OPTION_EXPOSURE);
             float clamped_exposure = std::max(exp_range.min, std::min(exp_range.max, manual_exposure));
             sensor.set_option(RS2_OPTION_EXPOSURE, clamped_exposure);
-            std::cout << "  Manual exposure: " << clamped_exposure << " μs" << std::endl;
+            std::cout << "  Manual exposure: " << clamped_exposure << " Î¼s" << std::endl;
           }
 
           if (sensor.supports(RS2_OPTION_GAIN)) {
@@ -554,7 +500,7 @@ bool RealsenseSensor::SetInfraredControl(bool auto_exposure, float manual_exposu
             rs2::option_range exp_range = sensor.get_option_range(RS2_OPTION_EXPOSURE);
             float clamped_exposure = std::max(exp_range.min, std::min(exp_range.max, manual_exposure));
             sensor.set_option(RS2_OPTION_EXPOSURE, clamped_exposure);
-            std::cout << "  Manual exposure: " << clamped_exposure << " μs" << std::endl;
+            std::cout << "  Manual exposure: " << clamped_exposure << " Î¼s" << std::endl;
           }
 
           if (sensor.supports(RS2_OPTION_GAIN)) {

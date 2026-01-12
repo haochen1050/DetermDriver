@@ -105,15 +105,13 @@ sensor/determ_sensor.h
 /home/determ/Desktop/DetermDriver/example/sensor/determ_sensor.h
 opencv2/opencv.hpp
 -
-opencv2/imgproc.hpp
--
-opencv2/calib3d.hpp
--
 GL/glut.h
 -
 GL/gl.h
 -
 GL/glu.h
+-
+nlohmann/json.hpp
 -
 iostream
 -
@@ -129,9 +127,9 @@ chrono
 -
 filesystem
 -
-nlohmann/json.hpp
--
 memory
+-
+cmath
 -
 
 /usr/include/libcamera/libcamera/base/bound_method.h

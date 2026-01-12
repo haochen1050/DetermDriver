@@ -110,6 +110,14 @@ numeric
 algorithm
 -
 
+/home/determ/Desktop/DetermDriver/source/src/raspberry_sensor.cpp
+sensor/raspberry_sensor.h
+/home/determ/Desktop/DetermDriver/source/src/sensor/raspberry_sensor.h
+
+/home/determ/Desktop/DetermDriver/source/src/realsense_d421_sensor.cpp
+sensor/realsense_d421_sensor.h
+/home/determ/Desktop/DetermDriver/source/src/sensor/realsense_d421_sensor.h
+
 /usr/include/libcamera/libcamera/base/bound_method.h
 memory
 -

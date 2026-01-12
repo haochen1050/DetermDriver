@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<rotation_matrix type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>3</cols>
+  <dt>d</dt>
+  <data>
+    0.99997422232076338 -0.0055061481087795754 0.0046083648931669894
+    0.0053717967186994679 0.99957434551584501 0.028675278317447324
+    -0.0047642936514619375 -0.02864978393590915 0.99957815671733663</data></rotation_matrix>
+<rotation_vector type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>1</cols>
+  <dt>d</dt>
+  <data>
+    -0.028666703569534827 0.0046870114675124199 0.0054397641722026737</data></rotation_vector>
+<translation_vector type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>1</cols>
+  <dt>d</dt>
+  <data>
+    0.035281948153395387 0.003904457489645026 -0.0074554831693479659</data></translation_vector>
+<color_camera_matrix type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>3</cols>
+  <dt>d</dt>
+  <data>
+    542.76105468898527 0. 323.29991923211634 0. 542.96477838386204
+    240.01483436373306 0. 0. 1.</data></color_camera_matrix>
+<color_distortion type_id="opencv-matrix">
+  <rows>1</rows>
+  <cols>5</cols>
+  <dt>d</dt>
+  <data>
+    -0.016496606467043963 -0.56504653338049349 -0.0015118701360063945
+    0.0031628423027756478 2.0496236369592271</data></color_distortion>
+<depth_fx>462.18331909179688</depth_fx>
+<depth_fy>462.18331909179688</depth_fy>
+<depth_cx>326.87393188476562</depth_cx>
+<depth_cy>246.21725463867188</depth_cy>
+<reprojection_error_mean>2.3416662216186523</reprojection_error_mean>
+<reprojection_error_std>3.1020851135253906</reprojection_error_std>
+<baseline_distance>0.036271819406748208</baseline_distance>
+<rotation_angle_degrees>1.6932226164904822</rotation_angle_degrees>
+<num_calibration_points>1672</num_calibration_points>
+<calibration_pairs>19</calibration_pairs>
+<pattern_size_width>11</pattern_size_width>
+<pattern_size_height>8</pattern_size_height>
+<square_size>30.</square_size>
+<timestamp>"20251203_111733"</timestamp>
+</opencv_storage>

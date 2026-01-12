@@ -1,5 +1,14 @@
-// Add these to your realsense_sensor.h file
 
+/**
+ * @file realsense_d421_sensor.h
+ * @author Hao Chen (hao.chen@determtech.com)
+ * RealSense D421 Sensor Driver for Determ Sensor Set
+ * @version 1.0.0
+ * @date 2025-07-03
+ *
+ * @copyright Copyright (c) 2025 Determ Inc. All rights reserved
+ *
+ */
 #pragma once
 
 #include <librealsense2/rs.hpp>
@@ -13,52 +22,6 @@
 
 namespace determ {
 namespace sensor {
-
-/**
- * @brief Timestamped frame from RealSense with hardware global time
- */
-struct RealsenseTimestampedFrame {
-    std::vector<uint8_t> data;
-    double timestamp_ms;          // Hardware global time timestamp
-    uint64_t sequence_number;
-    std::string stream_name;
-    
-    uint64_t getTimestampUs() const {
-        return static_cast<uint64_t>(timestamp_ms * 1000.0);
-    }
-    
-    double getTimestampMs() const {
-        return timestamp_ms;
-    }
-    
-    // Convert to system time point for synchronization
-    std::chrono::high_resolution_clock::time_point getTimestampAsTimePoint() const {
-        auto duration_ms = std::chrono::milliseconds(static_cast<long long>(timestamp_ms));
-        return std::chrono::high_resolution_clock::time_point(duration_ms);
-    }
-};
-
-/**
- * @brief Set of synchronized frames from RealSense
- */
-struct RealsenseFrameSet {
-    std::map<std::string, RealsenseTimestampedFrame> frames;
-    uint64_t frameset_sequence;
-    
-    std::chrono::high_resolution_clock::time_point getPrimaryTimestamp() const {
-        if (!frames.empty()) {
-            return frames.begin()->second.getTimestampAsTimePoint();
-        }
-        return std::chrono::high_resolution_clock::now();
-    }
-    
-    double getPrimaryTimestampMs() const {
-        if (!frames.empty()) {
-            return frames.begin()->second.getTimestampMs();
-        }
-        return 0.0;
-    }
-};
 
 class RealsenseSensor {
 public:
@@ -74,11 +37,8 @@ public:
     int Stop();
     
     // Frame capture methods
-    std::map<std::string, std::vector<uint8_t>> GetFrame();  // Original method
-    RealsenseFrameSet GetTimestampedFrameSet();              // New timestamped method
-    
-    // // Hardware timestamp access
-    // std::map<std::string, double> getLastHardwareTimestamps() const;
+    std::map<std::string, std::vector<uint8_t>> GetFrame();  // Legacy: returns frame data only
+    rs2::frameset GetFrameset();                             // New: returns native RealSense frameset with timestamps
     
     // Sensor controls
     bool SetDepthControl(bool auto_exposure, float manual_exposure = 8500.0f, float gain = 16.0f);
@@ -121,11 +81,6 @@ private:
     std::string m_device_name;
     std::string m_serial_number;
     std::string m_firmware_version;
-    
-    // Timestamp tracking
-    // std::map<std::string, double> m_last_hardware_timestamps;
-    uint64_t m_frame_sequence = 0;
-    uint64_t m_frameset_sequence = 0;
 };
 
 } // namespace sensor
