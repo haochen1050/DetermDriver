@@ -1,8 +1,8 @@
-# Install script for directory: /home/determ/Desktop/DetermDriver/example
+# Install script for directory: /home/determ/Determ/Projects/DetermDriver/example
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "/home/determ/Determ/Library/DetermSensor")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

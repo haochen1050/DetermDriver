@@ -1,22 +1,22 @@
 Performing C++ SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
-Change Dir: /home/determ/Desktop/DetermDriver/build/CMakeFiles/CMakeTmp
+Change Dir: /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_a1749/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_a1749.dir/build.make CMakeFiles/cmTC_a1749.dir/build
-gmake[1]: Entering directory '/home/determ/Desktop/DetermDriver/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_a1749.dir/src.cxx.o
-/usr/bin/c++   -Wall -Wextra -DCMAKE_HAVE_LIBC_PTHREAD -fPIE -std=c++17 -o CMakeFiles/cmTC_a1749.dir/src.cxx.o -c /home/determ/Desktop/DetermDriver/build/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_a1749
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a1749.dir/link.txt --verbose=1
-/usr/bin/c++  -Wall -Wextra -DCMAKE_HAVE_LIBC_PTHREAD CMakeFiles/cmTC_a1749.dir/src.cxx.o -o cmTC_a1749 
-/usr/bin/ld: CMakeFiles/cmTC_a1749.dir/src.cxx.o: in function `main':
+Run Build Command(s):/usr/bin/gmake cmTC_184a5/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_184a5.dir/build.make CMakeFiles/cmTC_184a5.dir/build
+gmake[1]: Entering directory '/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_184a5.dir/src.cxx.o
+/usr/bin/c++   -Wall -Wextra -DCMAKE_HAVE_LIBC_PTHREAD -fPIE -std=c++17 -o CMakeFiles/cmTC_184a5.dir/src.cxx.o -c /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_184a5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_184a5.dir/link.txt --verbose=1
+/usr/bin/c++  -Wall -Wextra -DCMAKE_HAVE_LIBC_PTHREAD CMakeFiles/cmTC_184a5.dir/src.cxx.o -o cmTC_184a5 
+/usr/bin/ld: CMakeFiles/cmTC_184a5.dir/src.cxx.o: in function `main':
 src.cxx:(.text+0x34): undefined reference to `pthread_create'
 /usr/bin/ld: src.cxx:(.text+0x3c): undefined reference to `pthread_detach'
 /usr/bin/ld: src.cxx:(.text+0x44): undefined reference to `pthread_cancel'
 /usr/bin/ld: src.cxx:(.text+0x50): undefined reference to `pthread_join'
 collect2: error: ld returned 1 exit status
-gmake[1]: *** [CMakeFiles/cmTC_a1749.dir/build.make:106: cmTC_a1749] Error 1
-gmake[1]: Leaving directory '/home/determ/Desktop/DetermDriver/build/CMakeFiles/CMakeTmp'
-gmake: *** [Makefile:140: cmTC_a1749/fast] Error 2
+gmake[1]: *** [CMakeFiles/cmTC_184a5.dir/build.make:106: cmTC_184a5] Error 1
+gmake[1]: Leaving directory '/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_184a5/fast] Error 2
 
 
 Source file was:
@@ -41,20 +41,20 @@ int main(void)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/determ/Desktop/DetermDriver/build/CMakeFiles/CMakeTmp
+Change Dir: /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_434c3/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_434c3.dir/build.make CMakeFiles/cmTC_434c3.dir/build
-gmake[1]: Entering directory '/home/determ/Desktop/DetermDriver/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_434c3.dir/CheckFunctionExists.cxx.o
-/usr/bin/c++   -Wall -Wextra -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE -std=c++17 -o CMakeFiles/cmTC_434c3.dir/CheckFunctionExists.cxx.o -c /home/determ/Desktop/DetermDriver/build/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
-Linking CXX executable cmTC_434c3
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_434c3.dir/link.txt --verbose=1
-/usr/bin/c++  -Wall -Wextra -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_434c3.dir/CheckFunctionExists.cxx.o -o cmTC_434c3  -lpthreads 
+Run Build Command(s):/usr/bin/gmake cmTC_ffde8/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_ffde8.dir/build.make CMakeFiles/cmTC_ffde8.dir/build
+gmake[1]: Entering directory '/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_ffde8.dir/CheckFunctionExists.cxx.o
+/usr/bin/c++   -Wall -Wextra -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE -std=c++17 -o CMakeFiles/cmTC_ffde8.dir/CheckFunctionExists.cxx.o -c /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_ffde8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ffde8.dir/link.txt --verbose=1
+/usr/bin/c++  -Wall -Wextra -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_ffde8.dir/CheckFunctionExists.cxx.o -o cmTC_ffde8  -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-gmake[1]: *** [CMakeFiles/cmTC_434c3.dir/build.make:106: cmTC_434c3] Error 1
-gmake[1]: Leaving directory '/home/determ/Desktop/DetermDriver/build/CMakeFiles/CMakeTmp'
-gmake: *** [Makefile:140: cmTC_434c3/fast] Error 2
+gmake[1]: *** [CMakeFiles/cmTC_ffde8.dir/build.make:106: cmTC_ffde8] Error 1
+gmake[1]: Leaving directory '/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_ffde8/fast] Error 2
 
 
 

@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
+  "../3rdparty/add_thirdparty.cmake"
   "../CMakeLists.txt"
   "CMakeFiles/3.18.4/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.18.4/CMakeSystem.cmake"
@@ -16,10 +17,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake"
   "/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVModules-release.cmake"
   "/usr/lib/aarch64-linux-gnu/cmake/opencv4/OpenCVModules.cmake"
-  "/usr/local/lib/aarch64-linux-gnu/cmake/realsense2/realsense2Config.cmake"
-  "/usr/local/lib/aarch64-linux-gnu/cmake/realsense2/realsense2ConfigVersion.cmake"
-  "/usr/local/lib/aarch64-linux-gnu/cmake/realsense2/realsense2Targets-release.cmake"
-  "/usr/local/lib/aarch64-linux-gnu/cmake/realsense2/realsense2Targets.cmake"
   "/usr/share/cmake-3.18/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.18/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
   "/usr/share/cmake-3.18/Modules/CMakeCommonLanguageInclude.cmake"
@@ -66,7 +63,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "source/CMakeFiles/determsensor.dir/DependInfo.cmake"
   "example/CMakeFiles/advanced_buffered_sync_example.dir/DependInfo.cmake"
-  "example/CMakeFiles/pointcloud_viewer.dir/DependInfo.cmake"
   "example/CMakeFiles/realsense_sensor_example.dir/DependInfo.cmake"
   "example/CMakeFiles/raspberry_sensor_example.dir/DependInfo.cmake"
   )

@@ -63,10 +63,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/determ/Desktop/DetermDriver
+CMAKE_SOURCE_DIR = /home/determ/Determ/Projects/DetermDriver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/determ/Desktop/DetermDriver/build
+CMAKE_BINARY_DIR = /home/determ/Determ/Projects/DetermDriver/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -94,7 +94,6 @@ clean: example/clean
 
 # Recursive "all" directory target.
 example/all: example/CMakeFiles/advanced_buffered_sync_example.dir/all
-example/all: example/CMakeFiles/pointcloud_viewer.dir/all
 example/all: example/CMakeFiles/realsense_sensor_example.dir/all
 example/all: example/CMakeFiles/raspberry_sensor_example.dir/all
 
@@ -107,7 +106,6 @@ example/preinstall:
 
 # Recursive "clean" directory target.
 example/clean: example/CMakeFiles/advanced_buffered_sync_example.dir/clean
-example/clean: example/CMakeFiles/pointcloud_viewer.dir/clean
 example/clean: example/CMakeFiles/realsense_sensor_example.dir/clean
 example/clean: example/CMakeFiles/raspberry_sensor_example.dir/clean
 
@@ -138,14 +136,14 @@ source/clean: source/CMakeFiles/determsensor.dir/clean
 source/CMakeFiles/determsensor.dir/all:
 	$(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/depend
 	$(MAKE) $(MAKESILENT) -f source/CMakeFiles/determsensor.dir/build.make source/CMakeFiles/determsensor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=3,4,5,6 "Built target determsensor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles --progress-num=3,4,5,6 "Built target determsensor"
 .PHONY : source/CMakeFiles/determsensor.dir/all
 
 # Build rule for subdir invocation for target.
 source/CMakeFiles/determsensor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/CMakeFiles/determsensor.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles 0
 .PHONY : source/CMakeFiles/determsensor.dir/rule
 
 # Convenience name for target.
@@ -165,14 +163,14 @@ source/CMakeFiles/determsensor.dir/clean:
 example/CMakeFiles/advanced_buffered_sync_example.dir/all: source/CMakeFiles/determsensor.dir/all
 	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/advanced_buffered_sync_example.dir/build.make example/CMakeFiles/advanced_buffered_sync_example.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/advanced_buffered_sync_example.dir/build.make example/CMakeFiles/advanced_buffered_sync_example.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=1,2 "Built target advanced_buffered_sync_example"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles --progress-num=1,2 "Built target advanced_buffered_sync_example"
 .PHONY : example/CMakeFiles/advanced_buffered_sync_example.dir/all
 
 # Build rule for subdir invocation for target.
 example/CMakeFiles/advanced_buffered_sync_example.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/advanced_buffered_sync_example.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles 0
 .PHONY : example/CMakeFiles/advanced_buffered_sync_example.dir/rule
 
 # Convenience name for target.
@@ -186,47 +184,20 @@ example/CMakeFiles/advanced_buffered_sync_example.dir/clean:
 .PHONY : example/CMakeFiles/advanced_buffered_sync_example.dir/clean
 
 #=============================================================================
-# Target rules for target example/CMakeFiles/pointcloud_viewer.dir
-
-# All Build rule for target.
-example/CMakeFiles/pointcloud_viewer.dir/all: source/CMakeFiles/determsensor.dir/all
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/depend
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=7,8 "Built target pointcloud_viewer"
-.PHONY : example/CMakeFiles/pointcloud_viewer.dir/all
-
-# Build rule for subdir invocation for target.
-example/CMakeFiles/pointcloud_viewer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/pointcloud_viewer.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 0
-.PHONY : example/CMakeFiles/pointcloud_viewer.dir/rule
-
-# Convenience name for target.
-pointcloud_viewer: example/CMakeFiles/pointcloud_viewer.dir/rule
-
-.PHONY : pointcloud_viewer
-
-# clean rule for target.
-example/CMakeFiles/pointcloud_viewer.dir/clean:
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/clean
-.PHONY : example/CMakeFiles/pointcloud_viewer.dir/clean
-
-#=============================================================================
 # Target rules for target example/CMakeFiles/realsense_sensor_example.dir
 
 # All Build rule for target.
 example/CMakeFiles/realsense_sensor_example.dir/all: source/CMakeFiles/determsensor.dir/all
 	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_sensor_example.dir/build.make example/CMakeFiles/realsense_sensor_example.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/realsense_sensor_example.dir/build.make example/CMakeFiles/realsense_sensor_example.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=11,12 "Built target realsense_sensor_example"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles --progress-num=9,10 "Built target realsense_sensor_example"
 .PHONY : example/CMakeFiles/realsense_sensor_example.dir/all
 
 # Build rule for subdir invocation for target.
 example/CMakeFiles/realsense_sensor_example.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/realsense_sensor_example.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles 0
 .PHONY : example/CMakeFiles/realsense_sensor_example.dir/rule
 
 # Convenience name for target.
@@ -246,14 +217,14 @@ example/CMakeFiles/realsense_sensor_example.dir/clean:
 example/CMakeFiles/raspberry_sensor_example.dir/all: source/CMakeFiles/determsensor.dir/all
 	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/raspberry_sensor_example.dir/build.make example/CMakeFiles/raspberry_sensor_example.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=9,10 "Built target raspberry_sensor_example"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles --progress-num=7,8 "Built target raspberry_sensor_example"
 .PHONY : example/CMakeFiles/raspberry_sensor_example.dir/all
 
 # Build rule for subdir invocation for target.
 example/CMakeFiles/raspberry_sensor_example.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/CMakeFiles/raspberry_sensor_example.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles 0
 .PHONY : example/CMakeFiles/raspberry_sensor_example.dir/rule
 
 # Convenience name for target.

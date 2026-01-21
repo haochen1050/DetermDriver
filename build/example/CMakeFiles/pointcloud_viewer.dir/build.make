@@ -62,10 +62,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/determ/Desktop/DetermDriver
+CMAKE_SOURCE_DIR = /home/determ/Determ/Projects/DetermDriver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/determ/Desktop/DetermDriver/build
+CMAKE_BINARY_DIR = /home/determ/Determ/Projects/DetermDriver/build
 
 # Include any dependencies generated for this target.
 include example/CMakeFiles/pointcloud_viewer.dir/depend.make
@@ -78,16 +78,16 @@ include example/CMakeFiles/pointcloud_viewer.dir/flags.make
 
 example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.o: example/CMakeFiles/pointcloud_viewer.dir/flags.make
 example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.o: ../example/pointcloud_viewer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.o"
-	cd /home/determ/Desktop/DetermDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.o -c /home/determ/Desktop/DetermDriver/example/pointcloud_viewer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.o"
+	cd /home/determ/Determ/Projects/DetermDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.o -c /home/determ/Determ/Projects/DetermDriver/example/pointcloud_viewer.cpp
 
 example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.i"
-	cd /home/determ/Desktop/DetermDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/determ/Desktop/DetermDriver/example/pointcloud_viewer.cpp > CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.i
+	cd /home/determ/Determ/Projects/DetermDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/determ/Determ/Projects/DetermDriver/example/pointcloud_viewer.cpp > CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.i
 
 example/CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.s"
-	cd /home/determ/Desktop/DetermDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/determ/Desktop/DetermDriver/example/pointcloud_viewer.cpp -o CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.s
+	cd /home/determ/Determ/Projects/DetermDriver/build/example && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/determ/Determ/Projects/DetermDriver/example/pointcloud_viewer.cpp -o CMakeFiles/pointcloud_viewer.dir/pointcloud_viewer.cpp.s
 
 # Object files for target pointcloud_viewer
 pointcloud_viewer_OBJECTS = \
@@ -136,9 +136,9 @@ bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libOpenGL.so
 bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libGLX.so
 bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libGLU.so
 bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libglut.so
+bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libXmu.so
 bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libXi.so
-bin/pointcloud_viewer: /usr/local/lib/aarch64-linux-gnu/librealsense2.so.2.56.1
-bin/pointcloud_viewer: /usr/local/lib/aarch64-linux-gnu/librsutils.a
+bin/pointcloud_viewer: ../3rdparty/realsense/lib/librealsense2.so
 bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libopencv_highgui.so.4.5.1
 bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libopencv_datasets.so.4.5.1
 bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libopencv_plot.so.4.5.1
@@ -159,8 +159,8 @@ bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libopencv_photo.so.4.5.1
 bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libopencv_imgproc.so.4.5.1
 bin/pointcloud_viewer: /usr/lib/aarch64-linux-gnu/libopencv_core.so.4.5.1
 bin/pointcloud_viewer: example/CMakeFiles/pointcloud_viewer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/pointcloud_viewer"
-	cd /home/determ/Desktop/DetermDriver/build/example && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pointcloud_viewer.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/pointcloud_viewer"
+	cd /home/determ/Determ/Projects/DetermDriver/build/example && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pointcloud_viewer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 example/CMakeFiles/pointcloud_viewer.dir/build: bin/pointcloud_viewer
@@ -168,10 +168,10 @@ example/CMakeFiles/pointcloud_viewer.dir/build: bin/pointcloud_viewer
 .PHONY : example/CMakeFiles/pointcloud_viewer.dir/build
 
 example/CMakeFiles/pointcloud_viewer.dir/clean:
-	cd /home/determ/Desktop/DetermDriver/build/example && $(CMAKE_COMMAND) -P CMakeFiles/pointcloud_viewer.dir/cmake_clean.cmake
+	cd /home/determ/Determ/Projects/DetermDriver/build/example && $(CMAKE_COMMAND) -P CMakeFiles/pointcloud_viewer.dir/cmake_clean.cmake
 .PHONY : example/CMakeFiles/pointcloud_viewer.dir/clean
 
 example/CMakeFiles/pointcloud_viewer.dir/depend:
-	cd /home/determ/Desktop/DetermDriver/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/determ/Desktop/DetermDriver /home/determ/Desktop/DetermDriver/example /home/determ/Desktop/DetermDriver/build /home/determ/Desktop/DetermDriver/build/example /home/determ/Desktop/DetermDriver/build/example/CMakeFiles/pointcloud_viewer.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/determ/Determ/Projects/DetermDriver/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/determ/Determ/Projects/DetermDriver /home/determ/Determ/Projects/DetermDriver/example /home/determ/Determ/Projects/DetermDriver/build /home/determ/Determ/Projects/DetermDriver/build/example /home/determ/Determ/Projects/DetermDriver/build/example/CMakeFiles/pointcloud_viewer.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : example/CMakeFiles/pointcloud_viewer.dir/depend
 

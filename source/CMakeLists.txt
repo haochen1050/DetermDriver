@@ -13,24 +13,23 @@ file(GLOB_RECURSE SENSOR_HEADERS
 # Create the enhanced sensor library
 add_library(${PROJECT_NAME} SHARED ${SENSOR_SOURCES} ${SENSOR_HEADERS})
 
+target_link_libraries(${PROJECT_NAME} PUBLIC ${PROJECT_NAME}::${REALSENSE_LIB_NAME})
+
 # Include directories
 target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     ${LIBCAMERA_INCLUDE_DIRS}
-    ${realsense2_INCLUDE_DIR}
 )
 
 # Link directories
 target_link_directories(${PROJECT_NAME} PUBLIC
     ${LIBCAMERA_LIBRARY_DIRS}
-    ${realsense2_LIBRARY_DIR}
 )
 
 # Link libraries
 target_link_libraries(${PROJECT_NAME} PUBLIC
     ${LIBCAMERA_LIBRARIES}
-    ${realsense2_LIBRARY}
     Threads::Threads
     rt  # Real-time library for RTC access
 )

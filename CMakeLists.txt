@@ -32,12 +32,12 @@ if(NOT LIBCAMERA_FOUND)
 endif()
 message(STATUS "Found libcamera: ${LIBCAMERA_VERSION}")
 
-# Find RealSense SDK
-find_package(realsense2 REQUIRED)
-if(NOT realsense2_FOUND)
-    message(FATAL_ERROR "librealsense2 not found. Please install librealsense2-dev package.")
-endif()
-message(STATUS "Found RealSense: ${realsense2_VERSION}")
+# # Find RealSense SDK
+# find_package(realsense2 REQUIRED)
+# if(NOT realsense2_FOUND)
+#     message(FATAL_ERROR "librealsense2 not found. Please install librealsense2-dev package.")
+# endif()
+# message(STATUS "Found RealSense: ${realsense2_VERSION}")
 
 # Find OpenCV package
 find_package(OpenCV REQUIRED)
@@ -58,6 +58,9 @@ endif()
 
 # Find threading library
 find_package(Threads REQUIRED)
+
+# Add thirdparty dependencies
+include(3rdparty/add_thirdparty.cmake)
 
 # Enhanced synchronization system features
 message(STATUS "")

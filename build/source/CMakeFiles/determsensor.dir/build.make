@@ -62,10 +62,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/determ/Desktop/DetermDriver
+CMAKE_SOURCE_DIR = /home/determ/Determ/Projects/DetermDriver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/determ/Desktop/DetermDriver/build
+CMAKE_BINARY_DIR = /home/determ/Determ/Projects/DetermDriver/build
 
 # Include any dependencies generated for this target.
 include source/CMakeFiles/determsensor.dir/depend.make
@@ -78,42 +78,42 @@ include source/CMakeFiles/determsensor.dir/flags.make
 
 source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o: source/CMakeFiles/determsensor.dir/flags.make
 source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o: ../source/src/determ_sensor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o"
-	cd /home/determ/Desktop/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o -c /home/determ/Desktop/DetermDriver/source/src/determ_sensor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o"
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/determsensor.dir/src/determ_sensor.cpp.o -c /home/determ/Determ/Projects/DetermDriver/source/src/determ_sensor.cpp
 
 source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/determsensor.dir/src/determ_sensor.cpp.i"
-	cd /home/determ/Desktop/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/determ/Desktop/DetermDriver/source/src/determ_sensor.cpp > CMakeFiles/determsensor.dir/src/determ_sensor.cpp.i
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/determ/Determ/Projects/DetermDriver/source/src/determ_sensor.cpp > CMakeFiles/determsensor.dir/src/determ_sensor.cpp.i
 
 source/CMakeFiles/determsensor.dir/src/determ_sensor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/determsensor.dir/src/determ_sensor.cpp.s"
-	cd /home/determ/Desktop/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/determ/Desktop/DetermDriver/source/src/determ_sensor.cpp -o CMakeFiles/determsensor.dir/src/determ_sensor.cpp.s
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/determ/Determ/Projects/DetermDriver/source/src/determ_sensor.cpp -o CMakeFiles/determsensor.dir/src/determ_sensor.cpp.s
 
 source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o: source/CMakeFiles/determsensor.dir/flags.make
 source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o: ../source/src/raspberry_sensor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o"
-	cd /home/determ/Desktop/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o -c /home/determ/Desktop/DetermDriver/source/src/raspberry_sensor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o"
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o -c /home/determ/Determ/Projects/DetermDriver/source/src/raspberry_sensor.cpp
 
 source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.i"
-	cd /home/determ/Desktop/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/determ/Desktop/DetermDriver/source/src/raspberry_sensor.cpp > CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.i
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/determ/Determ/Projects/DetermDriver/source/src/raspberry_sensor.cpp > CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.i
 
 source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.s"
-	cd /home/determ/Desktop/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/determ/Desktop/DetermDriver/source/src/raspberry_sensor.cpp -o CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.s
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/determ/Determ/Projects/DetermDriver/source/src/raspberry_sensor.cpp -o CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.s
 
 source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o: source/CMakeFiles/determsensor.dir/flags.make
 source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o: ../source/src/realsense_d421_sensor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o"
-	cd /home/determ/Desktop/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o -c /home/determ/Desktop/DetermDriver/source/src/realsense_d421_sensor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o"
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o -c /home/determ/Determ/Projects/DetermDriver/source/src/realsense_d421_sensor.cpp
 
 source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.i"
-	cd /home/determ/Desktop/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/determ/Desktop/DetermDriver/source/src/realsense_d421_sensor.cpp > CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.i
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/determ/Determ/Projects/DetermDriver/source/src/realsense_d421_sensor.cpp > CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.i
 
 source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.s"
-	cd /home/determ/Desktop/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/determ/Desktop/DetermDriver/source/src/realsense_d421_sensor.cpp -o CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.s
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/determ/Determ/Projects/DetermDriver/source/src/realsense_d421_sensor.cpp -o CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.s
 
 # Object files for target determsensor
 determsensor_OBJECTS = \
@@ -128,12 +128,11 @@ lib/libdetermsensor.so.1.0.0: source/CMakeFiles/determsensor.dir/src/determ_sens
 lib/libdetermsensor.so.1.0.0: source/CMakeFiles/determsensor.dir/src/raspberry_sensor.cpp.o
 lib/libdetermsensor.so.1.0.0: source/CMakeFiles/determsensor.dir/src/realsense_d421_sensor.cpp.o
 lib/libdetermsensor.so.1.0.0: source/CMakeFiles/determsensor.dir/build.make
-lib/libdetermsensor.so.1.0.0: /usr/local/lib/aarch64-linux-gnu/librealsense2.so.2.56.1
-lib/libdetermsensor.so.1.0.0: /usr/local/lib/aarch64-linux-gnu/librsutils.a
+lib/libdetermsensor.so.1.0.0: ../3rdparty/realsense/lib/librealsense2.so
 lib/libdetermsensor.so.1.0.0: source/CMakeFiles/determsensor.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/determ/Desktop/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library ../lib/libdetermsensor.so"
-	cd /home/determ/Desktop/DetermDriver/build/source && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/determsensor.dir/link.txt --verbose=$(VERBOSE)
-	cd /home/determ/Desktop/DetermDriver/build/source && $(CMAKE_COMMAND) -E cmake_symlink_library ../lib/libdetermsensor.so.1.0.0 ../lib/libdetermsensor.so.1 ../lib/libdetermsensor.so
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/determ/Determ/Projects/DetermDriver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library ../lib/libdetermsensor.so"
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/determsensor.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && $(CMAKE_COMMAND) -E cmake_symlink_library ../lib/libdetermsensor.so.1.0.0 ../lib/libdetermsensor.so.1 ../lib/libdetermsensor.so
 
 lib/libdetermsensor.so.1: lib/libdetermsensor.so.1.0.0
 	@$(CMAKE_COMMAND) -E touch_nocreate lib/libdetermsensor.so.1
@@ -147,10 +146,10 @@ source/CMakeFiles/determsensor.dir/build: lib/libdetermsensor.so
 .PHONY : source/CMakeFiles/determsensor.dir/build
 
 source/CMakeFiles/determsensor.dir/clean:
-	cd /home/determ/Desktop/DetermDriver/build/source && $(CMAKE_COMMAND) -P CMakeFiles/determsensor.dir/cmake_clean.cmake
+	cd /home/determ/Determ/Projects/DetermDriver/build/source && $(CMAKE_COMMAND) -P CMakeFiles/determsensor.dir/cmake_clean.cmake
 .PHONY : source/CMakeFiles/determsensor.dir/clean
 
 source/CMakeFiles/determsensor.dir/depend:
-	cd /home/determ/Desktop/DetermDriver/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/determ/Desktop/DetermDriver /home/determ/Desktop/DetermDriver/source /home/determ/Desktop/DetermDriver/build /home/determ/Desktop/DetermDriver/build/source /home/determ/Desktop/DetermDriver/build/source/CMakeFiles/determsensor.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/determ/Determ/Projects/DetermDriver/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/determ/Determ/Projects/DetermDriver /home/determ/Determ/Projects/DetermDriver/source /home/determ/Determ/Projects/DetermDriver/build /home/determ/Determ/Projects/DetermDriver/build/source /home/determ/Determ/Projects/DetermDriver/build/source/CMakeFiles/determsensor.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : source/CMakeFiles/determsensor.dir/depend
 

@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/determ/Desktop/DetermDriver
+CMAKE_SOURCE_DIR = /home/determ/Determ/Projects/DetermDriver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/determ/Desktop/DetermDriver/build
+CMAKE_BINARY_DIR = /home/determ/Determ/Projects/DetermDriver/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,18 +86,6 @@ install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
@@ -143,11 +131,23 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles /home/determ/Desktop/DetermDriver/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles /home/determ/Determ/Projects/DetermDriver/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Desktop/DetermDriver/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/determ/Determ/Projects/DetermDriver/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -202,19 +202,6 @@ advanced_buffered_sync_example/fast:
 .PHONY : advanced_buffered_sync_example/fast
 
 #=============================================================================
-# Target rules for targets named pointcloud_viewer
-
-# Build rule for target.
-pointcloud_viewer: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pointcloud_viewer
-.PHONY : pointcloud_viewer
-
-# fast build rule for target.
-pointcloud_viewer/fast:
-	$(MAKE) $(MAKESILENT) -f example/CMakeFiles/pointcloud_viewer.dir/build.make example/CMakeFiles/pointcloud_viewer.dir/build
-.PHONY : pointcloud_viewer/fast
-
-#=============================================================================
 # Target rules for targets named realsense_sensor_example
 
 # Build rule for target.
@@ -254,7 +241,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... advanced_buffered_sync_example"
 	@echo "... determsensor"
-	@echo "... pointcloud_viewer"
 	@echo "... raspberry_sensor_example"
 	@echo "... realsense_sensor_example"
 .PHONY : help
